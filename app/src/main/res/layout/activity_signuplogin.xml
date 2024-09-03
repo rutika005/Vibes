@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".Signuplogin">
+
+    <ImageView
+        android:id="@+id/iglogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        />
+
+    <Button
+        android:id="@+id/btnsignup"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:fontFamily="@font/roboto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:backgroundTint="#7069F2"
+        android:textColor="@color/white"
+        android:layout_below="@+id/iglogo"
+        />
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:fontFamily="@font/roboto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#7069F2"
+        android:textColor="@color/white"
+        android:layout_below="@+id/btnsignup"
+        />
+
+</RelativeLayout>

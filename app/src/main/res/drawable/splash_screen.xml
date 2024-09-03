@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/imglogo"
+        android:width="@dimen/splash_screen_icon_size"
+        android:height="190dp"
+        android:drawable="@drawable/logo"
+        android:gravity="center" />
+</layer-list>

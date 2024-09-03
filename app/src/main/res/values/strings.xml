@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Vibes</string>
+    <string name="Vibes">Listen to the best\nSongs everyday\nwith <b>VIBES</b> now!</string>
+    <string name="getstarted">Let\'s Get \nStarted</string>
+    <string name="welcomback">Hey,\nwelcome back!</string>
+    <string name="forgot_password"><font color="#0000ff">Forgot Password?</font></string>
+    <string name="account_sign_up">Don\'t have an account?<font color="#0000ff"> Sign Up</font></string>
+    <string name="account_login">already have an account? <font color="#0000ff"> Login</font></string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gradientstart">#17EAD9</color>
+    <color name="gradientend">#6078EA</color>
+
+    <color name="circle2">#0C94C5</color>
+    <color name="circle3">#4A66BC</color>
+    <color name="circle1">#53A0F9</color>
+
+</resources>
