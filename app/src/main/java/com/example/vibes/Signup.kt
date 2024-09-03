@@ -21,10 +21,5 @@ class Signup : AppCompatActivity() {
             val i = Intent(this,Login::class.java)
             startActivity(i)
         }
-
-//        signup.setOnClickListener{
-//            val i = Intent(this,Login::class.java)
-//            startActivity(i)
-//        }
     }
 }
