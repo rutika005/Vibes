@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 dependencies {
     implementation("com.google.android.material:material:1.6.0")

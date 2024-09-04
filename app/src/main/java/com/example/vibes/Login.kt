@@ -31,10 +31,10 @@ class Login : AppCompatActivity() {
         }
 
 
-//        btnlogin.setOnClickListener{
-//            val i =Intent(this,Signup::class.java)
-//            startActivity(i)
-//        }
+        btnlogin.setOnClickListener{
+            val i =Intent(this,Chooseartist::class.java)
+            startActivity(i)
+        }
 
     }
 }
