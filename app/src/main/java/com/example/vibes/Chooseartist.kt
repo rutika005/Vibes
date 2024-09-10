@@ -1,7 +1,9 @@
 package com.example.vibes
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.GridView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,10 +16,21 @@ class Chooseartist : AppCompatActivity() {
 
     lateinit var gridView: GridView
     private var numberNames = arrayOf(
-        "One", "Two", "Three", "Four", "Five",
-        "Six", "Seven", "Eight", "Nine", "Ten"
+        "Atif Aslam", "KK", "Atif Aslam", "KK", "Atif Aslam",
+        "KK", "Atif Aslam", "KK", "Atif Aslam", "KK","Atif Aslam", "KK", "Atif Aslam", "KK", "Atif Aslam",
+        "KK", "Atif Aslam", "KK", "Atif Aslam", "KK"
     )
     private var numberImages = intArrayOf(
+        R.drawable.atif_aslam,
+        R.drawable.kk,
+        R.drawable.atif_aslam,
+        R.drawable.kk,
+        R.drawable.atif_aslam,
+        R.drawable.kk,
+        R.drawable.atif_aslam,
+        R.drawable.kk,
+        R.drawable.atif_aslam,
+        R.drawable.kk,
         R.drawable.atif_aslam,
         R.drawable.kk,
         R.drawable.atif_aslam,
@@ -51,6 +64,12 @@ class Chooseartist : AppCompatActivity() {
                 applicationContext, "You CLicked " + numberNames[+position],
                 Toast.LENGTH_SHORT
             ).show()
+        }
+
+        val btnartistnext = findViewById<Button>(R.id.btnartistnext)
+        btnartistnext.setOnClickListener{
+            val i = Intent(this,Musictype::class.java)
+            startActivity(i)
         }
     }
 }
