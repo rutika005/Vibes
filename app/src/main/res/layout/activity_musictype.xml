@@ -16,7 +16,7 @@
         android:fontFamily="@font/raleway"
         android:text="What kind Music Do you like ?"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -150,20 +150,21 @@
         android:padding="16dp">
 
         <Button
-            android:layout_width="62dp"
+            android:layout_width="44dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/next"
-            android:text="←"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:drawableLeft="@drawable/icons8_back_arrow_32"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NEXT"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="140dp"
             android:backgroundTint="@color/next"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
