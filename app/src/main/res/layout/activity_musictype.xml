@@ -141,31 +141,22 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
         <Button
-            android:layout_width="44dp"
+            android:id="@+id/iconback"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="16dp"
             android:backgroundTint="@color/next"
-            android:drawableLeft="@drawable/icons8_back_arrow_32"/>
+            android:drawableLeft="@drawable/icons8_back_arrow_32" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NEXT"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="140dp"
+            android:layout_marginTop="-50dp"
+            android:layout_marginStart="240dp"
             android:backgroundTint="@color/next"
             android:textColor="@color/white" />
 
     </LinearLayout>
-
-</LinearLayout>
