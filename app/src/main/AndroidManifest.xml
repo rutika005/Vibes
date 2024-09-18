@@ -12,25 +12,25 @@
         android:theme="@style/Theme.Vibes"
         tools:targetApi="31">
         <activity
-            android:name=".Musictype"
+            android:name=".activity.Musictype"
             android:exported="false" />
         <activity
-            android:name=".Chooseartist"
+            android:name=".activity.Chooseartist"
             android:exported="false" />
         <activity
-            android:name=".Forgotpassword"
+            android:name=".activity.Forgotpassword"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".activity.Login"
             android:exported="false" />
         <activity
-            android:name=".Signup"
+            android:name=".activity.Signup"
             android:exported="false" />
         <activity
-            android:name=".Signuplogin"
+            android:name=".activity.Signuplogin"
             android:exported="false" />
         <activity
-            android:name=".Splashscreen"
+            android:name=".activity.Splashscreen"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true" />
 
         <meta-data

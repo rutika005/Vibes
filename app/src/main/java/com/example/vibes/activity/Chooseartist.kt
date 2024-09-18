@@ -1,4 +1,4 @@
-package com.example.vibes
+package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,8 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.GridView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.vibes.R
 import com.example.vibes.adapter.GridAdapter
 
 class Chooseartist : AppCompatActivity() {
@@ -68,7 +66,7 @@ class Chooseartist : AppCompatActivity() {
 
         val btnartistnext = findViewById<Button>(R.id.btnartistnext)
         btnartistnext.setOnClickListener{
-            val i = Intent(this,Musictype::class.java)
+            val i = Intent(this, Musictype::class.java)
             startActivity(i)
         }
     }
