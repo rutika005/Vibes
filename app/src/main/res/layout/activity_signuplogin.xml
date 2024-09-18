@@ -10,12 +10,11 @@
 
     <ImageView
         android:id="@+id/iglogo"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        />
+        android:src="@drawable/logo" />
 
     <Button
         android:id="@+id/btnsignup"
