@@ -2,6 +2,7 @@ package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ class Musictype : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_musictype)
 
+        val nextbutton = findViewById<Button>(R.id.nextbutton)
         val iconback = findViewById<ImageButton>(R.id.iconback)
 
 
@@ -22,6 +24,10 @@ class Musictype : AppCompatActivity() {
             startActivity(i)
         }
 
+        nextbutton.setOnClickListener{
+            val i = Intent(this, Languagechoose::class.java)
+            startActivity(i)
+        }
 
     }
 }
