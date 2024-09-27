@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background"
+    tools:context=".fragments.Fragment_home">
+
+        <!-- Profile and Notification Icons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center">
+
+            <!-- Profile Icon -->
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icons8_male_user_50"
+                android:layout_marginRight="300dp"/>
+
+            <!-- Notification Icon -->
+            <ImageView
+                android:id="@+id/notificationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icons8_notification_30" />
+        </LinearLayout>
+
+        <!-- Made For You Text -->
+        <TextView
+            android:id="@+id/madeForYouText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Made For You"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="16dp" />
+
+        <!-- Bollywood Covers Image -->
+        <ImageView
+            android:id="@+id/bollywoodCoversImage"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="100dp"
+            android:scaleType="centerCrop" />
+
+        <!-- Most Played Section Title -->
+        <TextView
+            android:id="@+id/mostPlayedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Played"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="270dp"
+            android:layout_marginStart="16dp" />
+
+        <!-- Most Played Songs - Horizontal ScrollView -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:layout_marginStart="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/song1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Trending Now Section Title -->
+        <TextView
+            android:id="@+id/trendingNowText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trending Now"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="430dp"
+            android:layout_marginStart="16dp" />
+
+        <!-- Trending Now Songs - Horizontal ScrollView -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="460dp"
+            android:layout_marginStart="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/song4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song5"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song6"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Bottom Player Section -->
+        <RelativeLayout
+            android:id="@+id/bottomPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="80dp"
+            android:layout_gravity="bottom"
+            android:background="#00E5FF">
+
+            <!-- Song Title and Artist -->
+            <TextView
+                android:id="@+id/songTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nadaniya"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp" />
+
+            <!-- Play Button -->
+            <ImageView
+                android:id="@+id/playButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logo"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp" />
+        </RelativeLayout>
+
+    </FrameLayout>

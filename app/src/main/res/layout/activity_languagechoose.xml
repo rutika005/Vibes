@@ -12,152 +12,185 @@
         android:id="@+id/choose_language_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:text="Choose Language"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/hindi_button"
+        app:layout_constraintBottom_toTopOf="@+id/ChipGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/hindi_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/Button"
-        android:text="Hindi"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/punjabi_button"
-        app:layout_constraintEnd_toStartOf="@+id/english_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_language_text" />
-
-    <Button
-        android:id="@+id/english_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="English"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/tamil_button"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/ChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hindi_button"
-        app:layout_constraintTop_toBottomOf="@+id/choose_language_text" />
-
-    <Button
-        android:id="@+id/punjabi_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Punjabi"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/telugu_button"
-        app:layout_constraintEnd_toStartOf="@+id/tamil_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hindi_button" />
+        app:layout_constraintTop_toTopOf="@+id/choose_language_text"
+        tools:ignore="MissingConstraints">
 
-    <Button
-        android:id="@+id/tamil_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Tamil"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/malayalam_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/punjabi_button"
-        app:layout_constraintTop_toBottomOf="@+id/english_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/hindi_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/Button"
+            android:text="Hindi"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/punjabi_button"
+            app:layout_constraintEnd_toStartOf="@+id/english_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_language_text" />
 
-    <Button
-        android:id="@+id/telugu_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Telugu"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/marathi_button"
-        app:layout_constraintEnd_toStartOf="@+id/malayalam_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/punjabi_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/english_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="English"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/tamil_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hindi_button"
+            app:layout_constraintTop_toBottomOf="@+id/choose_language_text" />
 
-    <Button
-        android:id="@+id/malayalam_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Malayalam"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/gujrati_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/telugu_button"
-        app:layout_constraintTop_toBottomOf="@+id/tamil_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/punjabi_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Punjabi"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/telugu_button"
+            app:layout_constraintEnd_toStartOf="@+id/tamil_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hindi_button" />
 
-    <Button
-        android:id="@+id/marathi_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Marathi"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bengali_button"
-        app:layout_constraintEnd_toStartOf="@+id/gujrati_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telugu_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tamil_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Tamil"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/malayalam_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/punjabi_button"
+            app:layout_constraintTop_toBottomOf="@+id/english_button" />
 
-    <Button
-        android:id="@+id/gujrati_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Gujrati"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/kannada_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/marathi_button"
-        app:layout_constraintTop_toBottomOf="@+id/malayalam_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/telugu_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Telugu"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/marathi_button"
+            app:layout_constraintEnd_toStartOf="@+id/malayalam_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/punjabi_button" />
 
-    <Button
-        android:id="@+id/bengali_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Bengali"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/kannada_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/marathi_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/malayalam_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Malayalam"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/gujrati_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/telugu_button"
+            app:layout_constraintTop_toBottomOf="@+id/tamil_button" />
 
-    <Button
-        android:id="@+id/kannada_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/Button"
-        android:text="Kannada"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bengali_button"
-        app:layout_constraintTop_toBottomOf="@+id/gujrati_button" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/marathi_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Marathi"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/bengali_button"
+            app:layout_constraintEnd_toStartOf="@+id/gujrati_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telugu_button" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/gujrati_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Gujrati"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/kannada_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/marathi_button"
+            app:layout_constraintTop_toBottomOf="@+id/malayalam_button" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bengali_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Bengali"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/kannada_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/marathi_button" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/kannada_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/Button"
+            android:text="Kannada"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bengali_button"
+            app:layout_constraintTop_toBottomOf="@+id/gujrati_button" />
+
+    </com.google.android.material.chip.ChipGroup>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonRow"
@@ -170,11 +203,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/iconback"
+            android:id="@+id/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/next"
-            android:contentDescription="Back Button"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_back_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
@@ -190,8 +223,8 @@
             android:layout_marginLeft="150dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iconback"
-            app:layout_constraintTop_toTopOf="@+id/iconback" />
+            app:layout_constraintStart_toEndOf="@id/ic_back"
+            app:layout_constraintTop_toTopOf="@+id/ic_back" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

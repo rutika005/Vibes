@@ -6,4 +6,6 @@
     <string name="forgot_password"><font color="#0000ff">Forgot Password?</font></string>
     <string name="account_sign_up">Don\'t have an account?<font color="#0000ff"> Sign Up</font></string>
     <string name="account_login">already have an account? <font color="#0000ff"> Login</font></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
