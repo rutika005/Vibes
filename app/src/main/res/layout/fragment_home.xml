@@ -21,7 +21,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icons8_male_user_50"
-                android:layout_marginRight="300dp"/>
+                android:layout_marginRight="250dp"/>
 
             <!-- Notification Icon -->
             <ImageView
@@ -50,7 +50,7 @@
             android:src="@drawable/ic_launcher_background"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="110dp"
             android:scaleType="centerCrop" />
 
         <!-- Most Played Section Title -->
@@ -61,7 +61,7 @@
             android:text="Most Played"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="280dp"
             android:layout_marginStart="16dp" />
 
         <!-- Most Played Songs - Horizontal ScrollView -->
@@ -74,6 +74,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -96,6 +97,14 @@
                     android:layout_height="100dp"
                     android:src="@drawable/ic_launcher_background"
                     android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -142,6 +151,14 @@
                     android:layout_height="100dp"
                     android:src="@drawable/ic_launcher_background"
                     android:layout_margin="8dp" />
+
+                <ImageView
+                    android:id="@+id/song7"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_margin="8dp" />
+
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -150,10 +167,13 @@
             android:id="@+id/bottomPlayer"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="80dp"
             android:layout_gravity="bottom"
             android:background="#00E5FF">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"/>
             <!-- Song Title and Artist -->
             <TextView
                 android:id="@+id/songTitle"
@@ -163,17 +183,18 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="80dp" />
 
             <!-- Play Button -->
             <ImageView
                 android:id="@+id/playButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/logo"
+                android:src="@android:drawable/ic_media_play"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="16dp"
+                app:tint="@color/black" />
         </RelativeLayout>
 
     </FrameLayout>
