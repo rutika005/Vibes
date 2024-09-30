@@ -1,4 +1,4 @@
-package com.example.vibes
+package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.vibes.R
 
 class Signup : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,13 +17,8 @@ class Signup : AppCompatActivity() {
         val signup = findViewById<Button>(R.id.buttonSignUp)
 
         txtlogin.setOnClickListener{
-            val i = Intent(this,Login::class.java)
+            val i = Intent(this, Login::class.java)
             startActivity(i)
         }
-
-//        signup.setOnClickListener{
-//            val i = Intent(this,Login::class.java)
-//            startActivity(i)
-//        }
     }
 }

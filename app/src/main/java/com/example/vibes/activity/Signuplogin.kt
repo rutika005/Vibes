@@ -1,10 +1,11 @@
-package com.example.vibes
+package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vibes.R
 
 class Signuplogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,11 +16,11 @@ class Signuplogin : AppCompatActivity() {
         var login = findViewById<Button>(R.id.btnlogin)
 
         signup.setOnClickListener{
-            val i= Intent(this,Signup::class.java)
+            val i= Intent(this, Signup::class.java)
             startActivity(i)
         }
         login.setOnClickListener{
-            val i=Intent(this,Login::class.java)
+            val i=Intent(this, Login::class.java)
             startActivity(i)
         }
 

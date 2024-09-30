@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".Signuplogin">
+    tools:context=".activity.Signuplogin">
 
     <ImageView
         android:id="@+id/iglogo"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        />
+        android:src="@drawable/logo" />
 
     <Button
         android:id="@+id/btnsignup"

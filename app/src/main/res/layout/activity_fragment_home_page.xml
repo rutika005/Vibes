@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.Fragment_Home_Page">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentDemo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/mainConstraint"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="#00FAFC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentDemo">
+
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fragment 1"
+                android:backgroundTint="#00FAFC"
+                android:src="@drawable/home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnsearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search"
+                android:text="Fragment 2"
+                android:backgroundTint="#00FAFC"
+                app:layout_constraintEnd_toStartOf="@+id/btnLibrary"
+                app:layout_constraintStart_toEndOf="@id/btnHome"
+                app:layout_constraintTop_toTopOf="@+id/btnHome" />
+
+            <ImageButton
+                android:id="@+id/btnLibrary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/library"
+                android:text="Fragment 3"
+                android:backgroundTint="#00FAFC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnsearch"
+                app:layout_constraintTop_toTopOf="@+id/btnsearch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
