@@ -12,6 +12,15 @@
         android:theme="@style/Theme.Vibes"
         tools:targetApi="31">
         <activity
+            android:name=".fragments.Home"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Fragment_Home_Page"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Languagechoose"
+            android:exported="false" />
+        <activity
             android:name=".activity.Musictype"
             android:exported="false" />
         <activity
