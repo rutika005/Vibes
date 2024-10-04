@@ -7,29 +7,31 @@
     android:background="@drawable/gradient_background"
     tools:context=".fragments.Fragment_home">
 
-        <!-- Profile and Notification Icons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center">
+    <!-- Profile and Notification Icons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center">
 
             <!-- Profile Icon -->
             <ImageView
-                android:id="@+id/profile_icon"
+                android:id="@+id/profileimage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icons8_male_user_50"
-                android:layout_marginRight="250dp"/>
+                android:layout_marginEnd="250dp"/>
 
             <!-- Notification Icon -->
             <ImageView
                 android:id="@+id/notificationIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icons8_notification_30" />
-        </LinearLayout>
+                android:src="@drawable/icons8_notification_30"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -229,17 +231,17 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- Trending Now Section Title -->
-        <TextView
-            android:id="@+id/trendingNowText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trending Now"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="16dp" />
+    <!-- Trending Now Section Title -->
+    <TextView
+        android:id="@+id/trendingNowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trending Now"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp" />
 
         <ImageButton
             android:id="@+id/imgbtnRight2"
@@ -381,7 +383,6 @@
                         android:textColor="#80000000"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
@@ -442,6 +443,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 app:tint="@color/black" />
+
         </RelativeLayout>
 
-    </FrameLayout>
+</FrameLayout>

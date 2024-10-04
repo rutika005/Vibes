@@ -251,8 +251,6 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-
-
             <!-- Add the remaining top search items here in similar blocks -->
 
         </LinearLayout>

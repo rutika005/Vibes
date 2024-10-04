@@ -1,11 +1,14 @@
 package com.example.vibes.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.vibes.R
+import com.example.vibes.activity.Edituserprofile
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +39,21 @@ class Fragment_home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Get the button from the fragment's layout
+        val editProfileButton = view.findViewById<ImageView>(R.id.profileimage)
+
+        // Set OnClickListener to trigger navigation
+        editProfileButton.setOnClickListener {
+            // Create intent to navigate to EditUserProfile activity
+            val intent = Intent(activity, Edituserprofile::class.java)
+            // Start the activity
+            startActivity(intent)
+        }
     }
 
 //    companion object {
