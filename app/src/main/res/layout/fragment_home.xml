@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/fragment_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,29 +9,31 @@
     android:background="@drawable/gradient_background"
     tools:context=".fragments.Fragment_home">
 
-        <!-- Profile and Notification Icons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center">
+    <!-- Profile and Notification Icons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center">
 
             <!-- Profile Icon -->
             <ImageView
-                android:id="@+id/profileIcon"
+                android:id="@+id/profileimage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icons8_male_user_50"
-                android:layout_marginRight="250dp"/>
+                android:layout_marginEnd="250dp"/>
 
             <!-- Notification Icon -->
             <ImageView
                 android:id="@+id/notificationIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icons8_notification_30" />
-        </LinearLayout>
+                android:src="@drawable/icons8_notification_30"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +68,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="TODO"
             android:src="@android:drawable/ic_media_play"
             android:layout_gravity="right"
             android:layout_marginEnd="15dp"
@@ -86,11 +91,13 @@
 
         <ImageButton
             android:id="@+id/imgbtnRight1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00000000"
             android:layout_gravity="right"
-            android:layout_marginTop="-35dp"
+            android:layout_marginTop="-25dp"
+            android:contentDescription="TODO"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/icons8_forward_26"/>
 
         <!-- Most Played Songs - Horizontal ScrollView -->
@@ -229,25 +236,27 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- Trending Now Section Title -->
-        <TextView
-            android:id="@+id/trendingNowText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trending Now"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="16dp" />
+    <!-- Trending Now Section Title -->
+    <TextView
+        android:id="@+id/trendingNowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trending Now"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp" />
 
         <ImageButton
             android:id="@+id/imgbtnRight2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00000000"
             android:layout_gravity="right"
-            android:layout_marginTop="-35dp"
+            android:layout_marginTop="-25dp"
+            android:contentDescription="TODO"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/icons8_forward_26"/>
 
         <!-- Trending Now Songs - Horizontal ScrollView -->
@@ -381,7 +390,6 @@
                         android:textColor="#80000000"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
@@ -389,20 +397,21 @@
 
         <!-- Bottom Player Section -->
         <RelativeLayout
-            android:id="@+id/bottomPlayer"
+            android:id="@+id/bottom_player"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_gravity="bottom"
             android:background="#00E5FF">
 
             <ImageView
+                android:id="@+id/songImg"
                 android:layout_width="70dp"
                 android:layout_height="90dp"
                 android:src="@drawable/nadaniya"
                 android:scaleType="fitXY"/>
             <!-- Song Title and Artist -->
             <TextView
-                android:id="@+id/songTitle"
+                android:id="@+id/currentSongTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -412,10 +421,10 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/songartist"
+                android:id="@+id/currentArtistName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/songTitle"
+                android:layout_below="@+id/currentSongTitle"
                 android:layout_marginStart="80dp"
                 android:text="Akshath"
                 android:textColor="#000000"
@@ -434,7 +443,7 @@
 
             <!-- Play Button -->
             <ImageView
-                android:id="@+id/playButton"
+                android:id="@+id/btnPlayPause"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@android:drawable/ic_media_play"
@@ -442,6 +451,16 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 app:tint="@color/black" />
-        </RelativeLayout>
 
-    </FrameLayout>
+            <SeekBar
+                android:id="@+id/songSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/songImg"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="-4dp" />
+
+        </RelativeLayout>
+</FrameLayout>
