@@ -30,7 +30,16 @@ class Edituserprofile : AppCompatActivity() {
     }
 
     private fun goToHometype() {
-        val i = Intent(this, Fragment_home::class.java)
-        startActivity(i)
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        // Replace the current fragment with Fragment_home
+        fragmentTransaction.replace(R.id.fragment_container, Fragment_home())
+
+        // Optional: Add the transaction to the back stack
+        fragmentTransaction.addToBackStack(null)
+
+        // Commit the transaction
+        fragmentTransaction.commit()
     }
 }
