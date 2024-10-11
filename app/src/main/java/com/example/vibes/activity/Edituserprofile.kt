@@ -20,12 +20,18 @@ class Edituserprofile : AppCompatActivity() {
         mBinding = ActivityEdituserprofileBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.backarrow.setOnClickListener(btnImgEvents)
+        mBinding.backArrow.setOnClickListener(btnImgEvents)
+        mBinding.editprofilebutton.setOnClickListener(btnbuttonEvent)
 
     }
     private val btnImgEvents = View.OnClickListener { view ->
         when (view.id) {
-            R.id.backarrow -> goToHometype()
+            R.id.backArrow -> goToHometype()
+        }
+    }
+    private val btnbuttonEvent = View.OnClickListener { view ->
+        when (view.id){
+            R.id.editprofilebutton -> goToUpdateprofile()
         }
     }
 
@@ -41,5 +47,10 @@ class Edituserprofile : AppCompatActivity() {
 
         // Commit the transaction
         fragmentTransaction.commit()
+    }
+
+    private fun goToUpdateprofile(){
+        val i = Intent(this,UpdateProfile::class.java)
+        startActivity(i)
     }
 }

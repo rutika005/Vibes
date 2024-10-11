@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.vibes"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -38,7 +38,8 @@ android {
     }
 }
 dependencies {
-    implementation("com.google.android.material:material:1.6.0")
+    implementation(libs.material.v160)
+    implementation(libs.car.ui.lib.v250)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
