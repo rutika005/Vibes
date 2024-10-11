@@ -7,4 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.UpdateProfile">
 
+    <Button
+        android:id="@+id/nextbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/next"
+        android:text="NEXT"
+        android:layout_marginLeft="150dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iconback"
+        app:layout_constraintTop_toTopOf="@+id/iconback" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
