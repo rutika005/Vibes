@@ -28,6 +28,7 @@ class Chooseartist : AppCompatActivity() {
         R.drawable.atif_aslam,
         R.drawable.kk,
         R.drawable.atif_aslam,
+        ///comments
         R.drawable.kk,
         R.drawable.atif_aslam,
         R.drawable.kk,
