@@ -24,7 +24,7 @@
         android:fontFamily="@font/roboto"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
-        android:backgroundTint="#7069F2"
+        android:backgroundTint="#0D00FF"
         android:textColor="@color/white"
         android:layout_below="@+id/iglogo"
         />
