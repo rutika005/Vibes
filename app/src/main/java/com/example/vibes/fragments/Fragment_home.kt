@@ -97,8 +97,6 @@ class Fragment_home : Fragment() {
             prepare() // Prepare the MediaPlayer
             start() // Start playing the song
         }
-
-        // Start updating SeekBar
         updateSeekBar()
     }
 
@@ -129,12 +127,17 @@ class Fragment_home : Fragment() {
         // Get the button from the fragment's layout
         val editProfileButton = view.findViewById<ImageView>(R.id.profileimage)
 
-        // Set OnClickListener to trigger navigation
         editProfileButton.setOnClickListener {
-            // Create intent to navigate to EditUserProfile activity
             val intent = Intent(activity, Edituserprofile::class.java)
-            // Start the activity
             startActivity(intent)
+        }
+
+        //Songpage
+        val songpage = view.findViewById<ImageView>(R.id.songImg)
+
+        songpage.setOnClickListener{
+            val i=Intent(this, MusicPlayingPage::class.java)
+            startActivity(i)
         }
     }
 
