@@ -1,9 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -12,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Now Playing"
+        android:layout_marginBottom="50dp"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -36,7 +36,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Akshath"
+        android:layout_marginBottom="100dp"
         android:textSize="16sp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,41 +55,49 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/google"/>
+            android:layout_marginEnd="25dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/icons8_shuffle_24" />
 
         <!-- prev -->
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@android:drawable/ic_media_previous" />
 
         <!--play -->
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@android:drawable/ic_media_play" />
 
         <!-- next -->
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@android:drawable/ic_media_next" />
 
         <!--repeat -->
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/icons8_repeat_30" />
 
     </LinearLayout>
 
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
-
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:text="Lyrics"
-        android:textSize="16sp" />
+        android:textSize="26sp" />
 
 </LinearLayout>
