@@ -51,10 +51,11 @@ class Signup : AppCompatActivity() {
                         val firebaseUser = firebaseAuth.currentUser
                         firebaseUser?.let { user ->
                             val uid = user.uid
-                            val userData = mapOf(
+                            val userData = linkedMapOf(
+                                "userName" to userName,
+                                "password" to password,
                                 "uid" to uid,
                                 "fullName" to fullName,
-                                "userName" to userName,
                                 "email" to email
                             )
 

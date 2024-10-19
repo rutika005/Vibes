@@ -111,7 +111,6 @@
         android:stretchColumns="2"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/textViewOr"
-        android:layout_marginTop="20sp"
         android:layout_marginStart="40dp">
 
         <TableRow android:layout_width="wrap_content">
