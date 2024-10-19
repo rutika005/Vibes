@@ -2,37 +2,65 @@ package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.example.vibes.R
+import com.example.vibes.databinding.ActivityEdituserprofileBinding
+import com.example.vibes.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
+    private lateinit var mBinding: ActivityLoginBinding
+    private lateinit var firebaseAuth : FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        val txtsignup = findViewById<TextView>(R.id.textViewSignup)
-        val tvforgotpass = findViewById<TextView>(R.id.tvforgotpass)
-        val btnlogin = findViewById<Button>(R.id.buttonLogin)
 
+        mBinding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
 
-        txtsignup.setOnClickListener{
-            val i =Intent(this, Signup::class.java)
-            startActivity(i)
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        mBinding.textViewSignup.setOnClickListener(textViewSignup)
+        mBinding.tvforgotpass.setOnClickListener(tvforgotpass)
+        mBinding.buttonLogin.setOnClickListener(buttonLogin)
+
+    }
+
+    private val textViewSignup = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.textViewSignup -> goToSignup()
         }
-
-        tvforgotpass.setOnClickListener{
-            val i = Intent(this, Forgotpassword::class.java)
-            startActivity(i)
+    }
+    private val tvforgotpass = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.tvforgotpass -> goToForgotpass()
         }
-
-
-        btnlogin.setOnClickListener{
-            val i =Intent(this, Chooseartist::class.java)
-            startActivity(i)
+    }
+    private val buttonLogin = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.buttonLogin -> goToChooseartist()
         }
+    }
 
+    private fun goToSignup(){
+
+        val i =Intent(this, Signup::class.java)
+        startActivity(i)
+    }
+
+    private fun goToForgotpass(){
+        val i = Intent(this, Forgotpassword::class.java)
+        startActivity(i)
+    }
+
+    private fun goToChooseartist(){
+        val i =Intent(this, Chooseartist::class.java)
+        startActivity(i)
     }
 }

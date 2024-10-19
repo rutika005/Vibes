@@ -83,6 +83,17 @@
         android:layout_below="@id/input_phone_number"
         android:layout_marginBottom="16dp" />
 
+    <TextView
+        android:id="@+id/tvgender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_email"
+        android:text="Gender"
+        android:textSize="20sp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="10dp"
+        />
+
     <!-- Gender Dropdown -->
     <Spinner
         android:id="@+id/input_gender"
@@ -96,7 +107,7 @@
         android:entries="@array/gender_array"
         android:dropDownWidth="match_parent"
         android:dropDownVerticalOffset="8dp"
-        android:layout_below="@id/input_email"
+        android:layout_below="@id/tvgender"
         android:layout_marginBottom="32dp" />
 
     <!-- Update Button -->

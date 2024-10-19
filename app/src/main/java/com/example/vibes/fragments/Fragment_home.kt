@@ -16,6 +16,7 @@ import com.example.vibes.Song
 import com.example.vibes.R
 import com.example.vibes.activity.Edituserprofile
 import android.media.MediaPlayer
+import com.example.vibes.activity.MusicPlayingPage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -136,7 +137,7 @@ class Fragment_home : Fragment() {
         val songpage = view.findViewById<ImageView>(R.id.songImg)
 
         songpage.setOnClickListener{
-            val i=Intent(this, MusicPlayingPage::class.java)
+            val i= Intent(activity, MusicPlayingPage::class.java)
             startActivity(i)
         }
     }

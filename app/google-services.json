@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "262045440934",
+    "firebase_url": "https://vibes-88ada-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vibes-88ada",
+    "storage_bucket": "vibes-88ada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262045440934:android:1714786b88c5e3dfb78d67",
+        "android_client_info": {
+          "package_name": "com.example.vibes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262045440934-nd72g83our7n1u3p1jnud6fhagbpu0h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vibes",
+            "certificate_hash": "66dd57300b20eff3ccadce18d593d73c9b34ef01"
+          }
+        },
+        {
+          "client_id": "262045440934-efntn0ia1ffio9cic5ntp5tj0r4eokj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK9kjjeE8EJs2i2_FZ5Sw-h6w7ha90p4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262045440934-efntn0ia1ffio9cic5ntp5tj0r4eokj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

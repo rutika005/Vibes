@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:text="Nadaniya"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,18 +37,19 @@
         android:layout_gravity="center_horizontal"
         android:text="Akshath"
         android:layout_marginBottom="100dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"/>
 
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
+        android:layout_marginBottom="50dp"
         android:orientation="horizontal">
 
         <!-- shuffle -->
