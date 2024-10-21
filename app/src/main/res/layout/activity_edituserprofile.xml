@@ -93,7 +93,7 @@
 
     <!-- Log Out Button -->
     <Button
-        android:id="@+id/logoutbutton"
+        android:id="@+id/btnLogout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Log out"
