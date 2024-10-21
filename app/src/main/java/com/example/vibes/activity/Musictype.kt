@@ -15,14 +15,7 @@ class Musictype : AppCompatActivity() {
         setContentView(R.layout.activity_musictype)
 
         val nextbutton = findViewById<Button>(R.id.nextbutton)
-        val iconback = findViewById<ImageButton>(R.id.iconback)
 
-
-
-        iconback.setOnClickListener{
-            val i = Intent(this, Chooseartist::class.java)
-            startActivity(i)
-        }
 
         nextbutton.setOnClickListener{
             val i = Intent(this, Languagechoose::class.java)

@@ -39,10 +39,9 @@ android {
     }
 }
 dependencies {
-    implementation(platform(libs.firebase.bom))
+
     implementation(libs.play.services.auth)
-    implementation(libs.firebase.database.ktx)
-    implementation(libs.firebase.database.v2005)
+
     implementation(libs.material.v160)
     implementation(libs.car.ui.lib.v250)
     implementation(libs.androidx.core.splashscreen)
@@ -52,10 +51,22 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.car.ui.lib)
+
+    //firebase authentication
     implementation(libs.firebase.auth)
     implementation(libs.firebase.auth.ktx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.database.v2005)
     implementation(libs.firebase.database)
+
+    //Add Firebase Authentication
+    implementation(libs.google.firebase.auth.ktx)
+    //Add Google Sign-In
+    implementation(libs.play.services.auth.v2060)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+    //convert images url to images
     androidTestImplementation(libs.androidx.espresso.core)
 }

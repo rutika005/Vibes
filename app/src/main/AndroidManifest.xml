@@ -8,11 +8,12 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/applogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vibes"
         tools:targetApi="31">
+
         <activity
             android:name=".activity.setting"
             android:exported="false" />
@@ -75,6 +76,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="YOUR_ADMOB_APP_ID"/>
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN"
+            android:value="YOUR_CLIENT_ID" />
+
     </application>
 
 </manifest>

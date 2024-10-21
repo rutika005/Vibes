@@ -1,103 +1,130 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.vibes.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.vibes.R
-import com.example.vibes.databinding.ActivityEdituserprofileBinding
 import com.example.vibes.databinding.ActivityLoginBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 
 class Login : AppCompatActivity() {
     private lateinit var mBinding: ActivityLoginBinding
-    private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    companion object {
+        private const val RC_SIGN_IN = 9001
+        private const val TAG = "GoogleSignIn"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
 
-        mBinding.textViewSignup.setOnClickListener(textViewSignup)
-        mBinding.tvforgotpass.setOnClickListener(tvforgotpass)
-        mBinding.buttonLogin.setOnClickListener(buttonLogin)
+        // Initialize Google Sign-In options
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your actual client ID
+            .requestEmail()
+            .build()
 
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // Set up onClickListeners for buttons
+        mBinding.textViewSignup.setOnClickListener { goToSignup() }
+        mBinding.tvforgotpass.setOnClickListener { goToForgotpass() }
+        mBinding.buttonLogin.setOnClickListener { loginUserWithEmail() }
+        mBinding.imggoogle.setOnClickListener { signInWithGoogle() } // Google Sign-In button
     }
 
-    private val textViewSignup = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.textViewSignup -> goToSignup()
-        }
-    }
-    private val tvforgotpass = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.tvforgotpass -> goToForgotpass()
-        }
-    }
-    private val buttonLogin = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.buttonLogin -> goToChooseartist()
-        }
-    }
-
-    private fun goToSignup(){
-
-        val i =Intent(this, Signup::class.java)
+    private fun goToSignup() {
+        val i = Intent(this, Signup::class.java)
         startActivity(i)
     }
 
-    private fun goToForgotpass(){
+    private fun goToForgotpass() {
         val i = Intent(this, Forgotpassword::class.java)
         startActivity(i)
     }
 
-    private fun goToChooseartist() {
-        val userName = mBinding.editTextFullName.text.toString() // Username field
-        val password = mBinding.editTextPassword.text.toString() // Password field
+    private fun loginUserWithEmail() {
+        val email = mBinding.editTextEmail.text.toString()
+        val password = mBinding.editTextPassword.text.toString()
 
-        if (userName.isNotEmpty() && password.isNotEmpty()) {
-            // Step 1: Retrieve user data from Firebase Realtime Database based on the entered username
-            database.reference.child("UserSignIn").child("Users").orderByChild("userName").equalTo(userName).get()
-                .addOnSuccessListener { dataSnapshot ->
-                    if (dataSnapshot.exists()) {
-                        // Assuming userName is unique and retrieves the correct user's data
-                        val userMap = dataSnapshot.children.first().value as Map<*, *>
-                        val registeredUserName = userMap["userName"] as? String // Get the stored username
-                        val registeredPassword = userMap["password"] as? String // Get the stored password
-
-                        // Step 2: Compare the entered password with the stored password
-                        if (password == registeredPassword && userName == registeredUserName) {
-                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                            // Navigate to the next screen
-                            val intent = Intent(this, Chooseartist::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            Toast.makeText(this, "Login failed: Incorrect credentials.", Toast.LENGTH_SHORT).show()
-                        }
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            // Firebase Authentication: Sign in with email and password
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val intent = Intent(this, Chooseartist::class.java)
+                        startActivity(intent)
+                        finish() // Close the login activity
                     } else {
-                        Toast.makeText(this, "Username not found.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
-                .addOnFailureListener { exception ->
-                    // If there's an error retrieving data, show the specific error message
-                    Toast.makeText(this, "Failed to retrieve user data: ${exception.message}", Toast.LENGTH_SHORT).show()
-                }
         } else {
-            Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        RC_SIGN_IN
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!)
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign-in failed", e)
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Google Sign-In success
+                    val user = firebaseAuth.currentUser
+                    Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
+
+                    // Navigate to Chooseartist activity
+                    val intent = Intent(this, Chooseartist::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(
+                        this,
+                        "Google Sign-In Failed: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 }

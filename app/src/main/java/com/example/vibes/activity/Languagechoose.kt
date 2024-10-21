@@ -24,7 +24,6 @@ class Languagechoose : AppCompatActivity() {
         mBinding = ActivityLanguagechooseBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.icBack.setOnClickListener(btnClickEvents)
         mBinding.buttonnext.setOnClickListener(btnClickEvents)
 
         val chipGroupChoice = findViewById<ChipGroup>(R.id.ChipGroup)
@@ -38,15 +37,10 @@ class Languagechoose : AppCompatActivity() {
 
     private val btnClickEvents = View.OnClickListener { view ->
         when (view.id) {
-            R.id.ic_back -> goToMusictype()
             R.id.buttonnext -> goToFragment_Home_Page()
         }
     }
 
-    private fun goToMusictype() {
-        val fIntent = Intent(this, Musictype::class.java)
-        startActivity(fIntent)
-    }
 
     private fun goToFragment_Home_Page() {
         val fIntent = Intent(this, Fragment_Home_Page::class.java)
