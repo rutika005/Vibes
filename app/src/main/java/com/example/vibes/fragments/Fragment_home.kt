@@ -28,6 +28,7 @@ import com.example.vibes.activity.MusicPlayingPage
  * Use the [Fragment_home.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("UNREACHABLE_CODE")
 class Fragment_home : Fragment() {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null

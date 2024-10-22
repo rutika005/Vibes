@@ -143,7 +143,6 @@ class Signup : AppCompatActivity() {
                     Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
                     val i=Intent(this,Chooseartist::class.java)
                     startActivity(i)
-
                 } else {
                     Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show()
                 }

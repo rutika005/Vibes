@@ -5,7 +5,6 @@ package com.example.vibes.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vibes.R
@@ -110,10 +109,9 @@ class Login : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Google Sign-In success
-                    val user = firebaseAuth.currentUser
                     Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
 
-                    // Navigate to Chooseartist activity
+                    // Navigate to Choose artist activity
                     val intent = Intent(this, Chooseartist::class.java)
                     startActivity(intent)
                     finish()
