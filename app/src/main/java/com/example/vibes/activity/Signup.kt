@@ -137,7 +137,7 @@ class Signup : AppCompatActivity() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener(this) {  task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()

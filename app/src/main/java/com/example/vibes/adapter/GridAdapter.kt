@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.vibes.R
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 
 class GridAdapter(
     private val context: Context,
@@ -20,10 +19,9 @@ class GridAdapter(
     private var layoutInflater: LayoutInflater? = null
     private lateinit var imageView: ImageView
     private lateinit var textView: TextView
-    private lateinit var chipGroup: ChipGroup
 
-    // Set to store selected items
-    private val selectedItems = mutableSetOf<String>()
+    // Set to store selected positions
+    private val selectedPositions = mutableSetOf<Int>()
 
     override fun getCount(): Int {
         return numbersInWords.size
@@ -38,43 +36,49 @@ class GridAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var convertView = convertView
+        var view = convertView
         if (layoutInflater == null) {
             layoutInflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
-        if (convertView == null) {
-            convertView = layoutInflater!!.inflate(R.layout.grid_item, null)
+        // Properly handle convertView null scenario
+        if (view == null) {
+            view = layoutInflater!!.inflate(R.layout.grid_item, parent, false)
         }
-        imageView = convertView!!.findViewById(R.id.imageView)
-        textView = convertView.findViewById(R.id.textView)
-        chipGroup = convertView.findViewById(R.id.chipGroup)
+
+        // Binding views
+        imageView = view!!.findViewById(R.id.imageView)
+        textView = view.findViewById(R.id.textView)
 
         imageView.setImageResource(numberImage[position])
         textView.text = numbersInWords[position]
 
-        // Add selectable chip
-        val chip = Chip(context)
-        chip.text = "Select ${numbersInWords[position]}"
-        chip.isCheckable = true
-        chip.isChecked = selectedItems.contains(numbersInWords[position])
-
-        chip.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedItems.add(numbersInWords[position])
-            } else {
-                selectedItems.remove(numbersInWords[position])
-            }
+        // Check if this position is selected
+        if (selectedPositions.contains(position)) {
+            // Change background to indicate selection
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_color)) // Use your selected color here
+            imageView.setColorFilter(ContextCompat.getColor(context, R.color.checkmark_color)) // Optional: add overlay checkmark effect
+        } else {
+            // Reset background for non-selected items
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.non_selected_color)) // Reset to non-selected color
+            imageView.clearColorFilter() // Remove any overlays
         }
 
-        chipGroup.removeAllViews()
-        chipGroup.addView(chip)
+        // Set up click listener to handle selection
+        view.setOnClickListener {
+            if (selectedPositions.contains(position)) {
+                selectedPositions.remove(position) // Deselect
+            } else {
+                selectedPositions.add(position) // Select
+            }
+            notifyDataSetChanged() // Refresh the grid to update selection visuals
+        }
 
-        return convertView
+        return view
     }
 
-    // Method to get selected items
-    fun getSelectedItems(): Set<String> {
-        return selectedItems
+    // Method to get selected positions
+    fun getSelectedItems(): Set<Int> {
+        return selectedPositions
     }
 }
