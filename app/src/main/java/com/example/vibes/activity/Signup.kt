@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Signup : AppCompatActivity() {
 
@@ -25,6 +26,7 @@ class Signup : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var firestore: FirebaseFirestore
 
     companion object {
         private const val RC_SIGN_IN = 9001
@@ -38,6 +40,8 @@ class Signup : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
 
         // Google Sign-In configuration
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -79,14 +83,16 @@ class Signup : AppCompatActivity() {
                         val firebaseUser = firebaseAuth.currentUser
                         firebaseUser?.let { user ->
                             val uid = user.uid
-                            val userData = linkedMapOf(
+                            val userData = hashMapOf(
                                 "userName" to userName,
                                 "password" to password,
                                 "uid" to uid,
                                 "fullName" to fullName,
                                 "email" to email
                             )
-                            database.reference.child("UserSignIn").child("Users").child(uid).setValue(userData)
+                            // Store user data in Firestore
+                            firestore.collection("Users").document(uid)
+                                .set(userData)
                                 .addOnCompleteListener { saveTask ->
                                     if (saveTask.isSuccessful) {
                                         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
@@ -106,6 +112,7 @@ class Signup : AppCompatActivity() {
             Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun handleSignUpError(exception: Exception?) {
         if (exception is FirebaseAuthUserCollisionException) {

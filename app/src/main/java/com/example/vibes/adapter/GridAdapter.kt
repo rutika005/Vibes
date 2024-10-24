@@ -53,17 +53,6 @@ class GridAdapter(
         imageView.setImageResource(numberImage[position])
         textView.text = numbersInWords[position]
 
-        // Check if this position is selected
-        if (selectedPositions.contains(position)) {
-            // Change background to indicate selection
-            view.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_color)) // Use your selected color here
-            imageView.setColorFilter(ContextCompat.getColor(context, R.color.checkmark_color)) // Optional: add overlay checkmark effect
-        } else {
-            // Reset background for non-selected items
-            view.setBackgroundColor(ContextCompat.getColor(context, R.color.non_selected_color)) // Reset to non-selected color
-            imageView.clearColorFilter() // Remove any overlays
-        }
-
         // Set up click listener to handle selection
         view.setOnClickListener {
             if (selectedPositions.contains(position)) {

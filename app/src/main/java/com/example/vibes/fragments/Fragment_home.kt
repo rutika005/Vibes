@@ -12,7 +12,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
-import com.example.vibes.Song
 import com.example.vibes.R
 import com.example.vibes.activity.Edituserprofile
 import android.media.MediaPlayer
@@ -47,13 +46,6 @@ class Fragment_home : Fragment() {
     private lateinit var songSeekBar: SeekBar
     private lateinit var btnPlayPause: ImageButton
 
-    private val songList = listOf(
-        Song("Nadaniya", "Akshath", 210, "https://www.example.com/nadaniya.mp3"),
-        Song("Perfect", "ED Sheern", 263, "https://www.example.com/perfect.mp3"),
-        Song("Sajni", "Arijit Singh", 245, "https://www.example.com/sajni.mp3"),
-        Song("With You", "AP Dhillon", 200, "https://www.example.com/with_you.mp3")
-    )
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,56 +53,6 @@ class Fragment_home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
-
-        currentSongTitle = view?.findViewById(R.id.currentSongTitle) ?: currentSongTitle
-        currentArtistName = view?.findViewById(R.id.currentArtistName) ?: currentArtistName
-        songSeekBar = view?.findViewById(R.id.songSeekBar) ?: songSeekBar
-        btnPlayPause = view?.findViewById(R.id.btnPlayPause) ?: btnPlayPause
-
-        // Set up button click listener
-        btnPlayPause.setOnClickListener {
-            // Call your method to play the song and update the UI
-            val selectedSong = getSelectedSong() // Method to get the selected song
-            playSong(selectedSong)
-            updateBottomPlayerUI(selectedSong)
-        }
-
-        return view
-    }
-
-    private fun updateBottomPlayerUI(song: Song) {
-        currentSongTitle.text = song.title
-        currentArtistName.text = song.artist
-        // Update SeekBar max value and progress if necessary
-        songSeekBar.max = song.duration // Set the max duration of the song
-    }
-    private fun playSong(song: Song) {
-        // Stop the media player if it's already playing
-        mediaPlayer?.let {
-            if (it.isPlaying) {
-                it.stop()
-                it.reset()
-            }
-        }
-
-        // Initialize the MediaPlayer with the song URL
-        mediaPlayer = MediaPlayer().apply {
-            setDataSource(song.url) // Set the data source to the song URL
-            prepare() // Prepare the MediaPlayer
-            start() // Start playing the song
-        }
-        updateSeekBar()
-    }
-
-    private fun updateSeekBar() {
-        val handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
-                // Assuming you have a way to get the current position of the song
-                songSeekBar.progress = getCurrentSongPosition() // Method to get current position
-                handler.postDelayed(this, 1000) // Update every second
-            }
-        })
     }
 
     private fun getCurrentSongPosition(): Int {
@@ -118,10 +60,6 @@ class Fragment_home : Fragment() {
         return 0 // Replace with actual implementation
     }
 
-    private fun getSelectedSong(): Song {
-        // Logic to get the currently selected song
-        return songList.random() // Replace with actual song object
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

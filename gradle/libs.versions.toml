@@ -5,6 +5,7 @@ coreSplashscreen = "1.0.1"
 firebaseAuth = "23.0.0"
 firebaseBom = "33.4.0"
 firebaseDatabaseVersion = "20.0.5"
+firebaseDynamicLinks = "22.1.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -30,6 +31,8 @@ firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "f
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-database-ktx = { module = "com.google.firebase:firebase-database-ktx" }
 firebase-database-v2005 = { module = "com.google.firebase:firebase-database", version.ref = "firebaseDatabaseVersion" }
+firebase-dynamic-links = { module = "com.google.firebase:firebase-dynamic-links", version.ref = "firebaseDynamicLinks" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -12,10 +12,4 @@
     <color name="Button">#AADBF8</color>
     <color name="next">#7069F2</color>
 
-    <!-- colors.xml -->
-    <color name="selected_color">#D3CCE3</color> <!-- Light purple for selected items -->
-    <color name="non_selected_color">#FFFFFF</color> <!-- White for non-selected items -->
-    <color name="checkmark_color">#FF00FF</color> <!-- Optional checkmark overlay color -->
-
-
 </resources>

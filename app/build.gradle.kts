@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.database.v2005)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.dynamic.links)
+
 
     //Add Firebase Authentication
     implementation(libs.google.firebase.auth.ktx)

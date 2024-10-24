@@ -17,12 +17,15 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
     private lateinit var mBinding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var firestore: FirebaseFirestore
+
 
     companion object {
         private const val RC_SIGN_IN = 9001
@@ -36,6 +39,8 @@ class Login : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
 
         // Initialize Google Sign-In options
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -67,13 +72,29 @@ class Login : AppCompatActivity() {
         val password = mBinding.editTextPassword.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty()) {
-            // Firebase Authentication: Sign in with email and password
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val intent = Intent(this, Chooseartist::class.java)
-                        startActivity(intent)
-                        finish() // Close the login activity
+                        val uid = firebaseAuth.currentUser?.uid
+                        uid?.let {
+                            // Fetch user data from Firestore
+                            firestore.collection("Users").document(uid)
+                                .get()
+                                .addOnSuccessListener { document ->
+                                    if (document.exists()) {
+                                        val userData = document.data
+                                        Toast.makeText(this, "Welcome back, ${userData?.get("userName")}", Toast.LENGTH_SHORT).show()
+                                        val intent = Intent(this, Chooseartist::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "User data not found.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Failed to fetch user data: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
                     } else {
                         Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -82,6 +103,7 @@ class Login : AppCompatActivity() {
             Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent

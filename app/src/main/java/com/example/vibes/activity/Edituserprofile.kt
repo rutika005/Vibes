@@ -29,14 +29,14 @@ class Edituserprofile : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
 
         // Set up click listeners
-        mBinding.backArrow.setOnClickListener(btnImgEvents)
+        mBinding.backarr.setOnClickListener(btnImgEvents)
         mBinding.editprofilebutton.setOnClickListener(btnbuttonEvent)
         mBinding.btnLogout.setOnClickListener { showLogoutDialog() } // Logout button click
     }
 
     private val btnImgEvents = View.OnClickListener { view ->
         when (view.id) {
-            R.id.backArrow -> goToHometype()
+            R.id.backarr -> goToHometype()
         }
     }
 
@@ -51,9 +51,8 @@ class Edituserprofile : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         // Replace the current fragment with Fragment_home
-        fragmentTransaction.replace(R.id.fragment_container, Fragment_home())
+        fragmentTransaction.replace(R.id.fragment_container, Fragment_home()).commit()
         fragmentTransaction.addToBackStack(null) // Optional: Add to back stack
-        fragmentTransaction.commit()
     }
 
     private fun goToUpdateprofile() {

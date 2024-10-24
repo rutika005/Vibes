@@ -37,25 +37,14 @@ class Chooseartist : AppCompatActivity() {
             numbersInWords = numberNames,
             numberImage = numberImages
         )
-
         gridView.adapter = mainAdapter
 
         val btnartistnext = findViewById<Button>(R.id.btnartistnext)
         btnartistnext.setOnClickListener {
             val selectedItems = mainAdapter.getSelectedItems()
+            val i = Intent(this, Musictype::class.java)
+            startActivity(i)
 
-            if (selectedItems.isNotEmpty()) {
-                // SharedPreferences me selected artists ko store karein
-                val editor = sharedPreferences.edit()
-                editor.putStringSet("selectedArtists",selectedItems.map { numberNames[it] }.toSet())
-                editor.apply()
-
-                // Next activity me jaane ke liye
-                val i = Intent(this, Musictype::class.java)
-                startActivity(i)
-            } else {
-                Toast.makeText(this, "Kripya kam se kam ek artist select karein", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }
