@@ -40,12 +40,6 @@ class Fragment_home : Fragment() {
 //            param2 = it.getString(ARG_PARAM2)
 //        }
     }
-    private var mediaPlayer: MediaPlayer? = null
-    private lateinit var currentSongTitle: TextView
-    private lateinit var currentArtistName: TextView
-    private lateinit var songSeekBar: SeekBar
-    private lateinit var btnPlayPause: ImageButton
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

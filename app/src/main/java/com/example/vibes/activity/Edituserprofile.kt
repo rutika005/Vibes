@@ -20,7 +20,6 @@ class Edituserprofile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edituserprofile)
         mBinding = ActivityEdituserprofileBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
@@ -31,7 +30,7 @@ class Edituserprofile : AppCompatActivity() {
         // Set up click listeners
         mBinding.backarr.setOnClickListener(btnImgEvents)
         mBinding.editprofilebutton.setOnClickListener(btnbuttonEvent)
-        mBinding.btnLogout.setOnClickListener { showLogoutDialog() } // Logout button click
+        mBinding.btnLogout.setOnClickListener { showLogoutDialog() }
     }
 
     private val btnImgEvents = View.OnClickListener { view ->
@@ -47,12 +46,12 @@ class Edituserprofile : AppCompatActivity() {
     }
 
     private fun goToHometype() {
+        val i=Intent()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-
-        // Replace the current fragment with Fragment_home
-        fragmentTransaction.replace(R.id.fragment_container, Fragment_home()).commit()
-        fragmentTransaction.addToBackStack(null) // Optional: Add to back stack
+        fragmentTransaction.replace(R.id.fragment_container, Fragment_home())
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     private fun goToUpdateprofile() {

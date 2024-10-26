@@ -1,12 +1,9 @@
 package com.example.vibes.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vibes.R
 import com.example.vibes.adapter.GridAdapter
@@ -14,10 +11,10 @@ import com.example.vibes.adapter.GridAdapter
 class Chooseartist : AppCompatActivity() {
 
     private lateinit var gridView: GridView
-    private lateinit var sharedPreferences: SharedPreferences
     private var numberNames = arrayOf("Atif Aslam", "KK", "Atif Aslam", "KK", "Atif Aslam",
         "KK", "Atif Aslam", "KK", "Atif Aslam", "KK","Atif Aslam", "KK", "Atif Aslam", "KK", "Atif Aslam",
-        "KK", "Atif Aslam", "KK", "Atif Aslam", "KK")
+        "KK", "Atif Aslam", "KK")
+
     private var numberImages = intArrayOf(
         R.drawable.atif_aslam,R.drawable.kk,R.drawable.atif_aslam,R.drawable.kk,
         R.drawable.atif_aslam,R.drawable.kk,R.drawable.atif_aslam,R.drawable.kk,
@@ -30,7 +27,6 @@ class Chooseartist : AppCompatActivity() {
         setContentView(R.layout.activity_chooseartist)
 
         gridView = findViewById(R.id.gridView)
-        sharedPreferences = getSharedPreferences("ArtistPrefs", Context.MODE_PRIVATE)
 
         val mainAdapter = GridAdapter(
             context = this,
@@ -41,7 +37,6 @@ class Chooseartist : AppCompatActivity() {
 
         val btnartistnext = findViewById<Button>(R.id.btnartistnext)
         btnartistnext.setOnClickListener {
-            val selectedItems = mainAdapter.getSelectedItems()
             val i = Intent(this, Musictype::class.java)
             startActivity(i)
 

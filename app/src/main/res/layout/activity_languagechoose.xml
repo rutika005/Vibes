@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        app:singleSelection="false"
         app:layout_constraintBottom_toTopOf="@+id/buttonRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,9 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            app:chipStrokeColor="@color/black"
+            app:chipIcon="@drawable/ic_back_arrow"
+            app:checkedIconVisible="true"
             app:layout_constraintBottom_toTopOf="@+id/punjabi_button"
             app:layout_constraintEnd_toStartOf="@+id/english_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -191,6 +195,16 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    <TextView
+    android:id="@+id/selected_languages_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="No language selected"
+    android:textColor="@color/white"
+    app:layout_constraintTop_toBottomOf="@id/ChipGroup"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonRow"
@@ -213,6 +227,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
