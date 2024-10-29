@@ -1,15 +1,16 @@
 package com.example.vibes.activity
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vibes.R
 import com.example.vibes.databinding.ActivityLanguagechooseBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
+@Suppress("DEPRECATION")
 class Languagechoose : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLanguagechooseBinding
@@ -30,14 +31,16 @@ class Languagechoose : AppCompatActivity() {
 
         // Button click event to move to the next screen
         mBinding.buttonnext.setOnClickListener {
-            goToFragment_Home_Page()
+            goToFragmentHomePage()
         }
     }
 
     // Display selected languages in TextView
+    @SuppressLint("SetTextI18n")
     private fun showSelectedLanguages(group: ChipGroup) {
         val selectedLanguages = mutableListOf<String>()
 
+        // Loop through all chips in the ChipGroup
         for (i in 0 until group.childCount) {
             val chip = group.getChildAt(i) as Chip
             if (chip.isChecked) {
@@ -45,6 +48,7 @@ class Languagechoose : AppCompatActivity() {
             }
         }
 
+        // Update the TextView with selected languages
         if (selectedLanguages.isEmpty()) {
             selectedLanguagesTextView.text = "No language selected"
         } else {
@@ -53,7 +57,8 @@ class Languagechoose : AppCompatActivity() {
     }
 
     // Method to navigate to the next screen
-    private fun goToFragment_Home_Page() {
-        // Your intent code here
+    private fun goToFragmentHomePage() {
+        val i= Intent(this,Fragment_Home_Page::class.java)
+        startActivity(i)
     }
 }
