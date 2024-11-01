@@ -506,4 +506,19 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Bottom Player Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <include
+            android:id="@+id/nowPlaying"
+            layout="@layout/bottom_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>

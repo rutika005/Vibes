@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vibes.R
 import com.example.vibes.databinding.ActivityEdituserprofileBinding
-import com.example.vibes.fragments.Fragment_home
+import com.example.vibes.fragments.FragmentHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -49,7 +49,7 @@ class Edituserprofile : AppCompatActivity() {
         val i=Intent()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, Fragment_home())
+        fragmentTransaction.replace(R.id.fragment_container, FragmentHome())
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }

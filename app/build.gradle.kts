@@ -62,6 +62,14 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.dynamic.links)
 
+    //retrofit
+    implementation(libs.retrofit)
+
+    //gson converter
+    implementation(libs.converter.gson)
+
+    //picasso for converting image link to API
+    implementation(libs.picasso)
 
     //Add Firebase Authentication
     implementation(libs.google.firebase.auth.ktx)

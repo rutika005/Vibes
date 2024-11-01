@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.vibes.R
 import com.example.vibes.databinding.ActivityEdituserprofileBinding
 import com.example.vibes.databinding.ActivityUpdateProfileBinding
-import com.example.vibes.fragments.Fragment_home
 
 class UpdateProfile : AppCompatActivity() {
     private lateinit var mBinding: ActivityUpdateProfileBinding

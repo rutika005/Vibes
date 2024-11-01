@@ -9,8 +9,6 @@
     android:padding="3dp"
     app:shapeAppearanceOverlay="@style/RoundedSquare">
 
-
-
     <ImageButton
         android:id="@+id/imageView"
         android:layout_width="150dp"
