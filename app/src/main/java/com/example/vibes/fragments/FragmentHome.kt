@@ -30,6 +30,7 @@ class FragmentHome : Fragment() {
     private lateinit var songTitle: TextView
     private lateinit var artistName: TextView
     private lateinit var playPauseButton: ImageButton
+    private val combinedDataList = mutableListOf<Data>() // Combined list for all genres
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,36 +55,47 @@ class FragmentHome : Fragment() {
             .build()
             .create(ApiInterface::class.java)
 
-        // Select a random genre or search term
-        val randomGenres = listOf("Pop","Rock","Top","Hits","Hip Hop","K-POP","Blues")
-        val randomSearch = randomGenres.random()
+        // List of genres to fetch
+        val genres = listOf("Rock", "Top", "Hits", "Hip Hop", "K-Pop", "Blues","Romantic")
 
-        // Fetch data using the random genre
-        val retrofitData = retrofitBuilder.getData(randomSearch)
-        retrofitData.enqueue(object : Callback<MyData?> {
+        // Fetch data for each genre
+        for (genre in genres) {
+            fetchGenreData(retrofitBuilder, genre)
+        }
+
+        // Handle play/pause button click in Now Playing section
+        playPauseButton.setOnClickListener {
+            myAdapter.playPauseSong()
+        }
+    }
+
+    private fun fetchGenreData(apiInterface: ApiInterface, genre: String) {
+        val call = apiInterface.getData(genre)
+        call.enqueue(object : Callback<MyData?> {
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
-                val dataList = response.body()?.data ?: return
+                response.body()?.data?.let { dataList ->
+                    combinedDataList.addAll(dataList) // Add fetched data to combined list
 
-                // Initialize adapter with callbacks
-                myAdapter = RecyclerViewAdapter(requireContext(), dataList,
-                    onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
-                    onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) }
-                )
-                myRecyclerView.adapter = myAdapter
-                myRecyclerView.layoutManager = LinearLayoutManager(
-                    requireContext(), LinearLayoutManager.HORIZONTAL, false
-                )
+                    // Initialize or update adapter with combined data
+                    if (!::myAdapter.isInitialized) {
+                        myAdapter = RecyclerViewAdapter(requireContext(), combinedDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) }
+                        )
+                        myRecyclerView.adapter = myAdapter
+                        myRecyclerView.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        myAdapter.notifyDataSetChanged() // Refresh adapter with new data
+                    }
+                }
             }
 
             override fun onFailure(call: Call<MyData?>, t: Throwable) {
                 // Handle error
             }
         })
-
-        // Handle play/pause button click in Now Playing section
-        playPauseButton.setOnClickListener {
-            myAdapter.playPauseSong()
-        }
     }
 
     private fun updateNowPlayingUI(song: Data) {

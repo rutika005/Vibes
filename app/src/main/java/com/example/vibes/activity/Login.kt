@@ -20,16 +20,21 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
+    private lateinit var database: FirebaseDatabase
+    private lateinit var firestore: FirebaseFirestore
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var callbackManager: CallbackManager
 
     companion object {
         private const val RC_SIGN_IN = 9001
+        private const val TAG = "GoogleSignIn"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +44,9 @@ class Login : AppCompatActivity() {
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
 
         // Initialize Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -59,6 +67,43 @@ class Login : AppCompatActivity() {
         // Set up Facebook Login button
         mBinding.igfacebook.setOnClickListener {
             signInWithFacebook()
+        }
+    }
+
+    private fun loginUserWithEmail() {
+        val email = mBinding.editTextEmail.text.toString()
+        val password = mBinding.editTextPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val uid = firebaseAuth.currentUser?.uid
+                        uid?.let {
+                            // Fetch user data from Firestore
+                            firestore.collection("Users").document(uid)
+                                .get()
+                                .addOnSuccessListener { document ->
+                                    if (document.exists()) {
+                                        val userData = document.data
+                                        Toast.makeText(this, "Welcome back, ${userData?.get("userName")}", Toast.LENGTH_SHORT).show()
+                                        val intent = Intent(this, Chooseartist::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "User data not found.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Failed to fetch user data: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                    } else {
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        } else {
+            Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
         }
     }
 
