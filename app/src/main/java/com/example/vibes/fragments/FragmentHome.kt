@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,7 +54,12 @@ class FragmentHome : Fragment() {
             .build()
             .create(ApiInterface::class.java)
 
-        val retrofitData = retrofitBuilder.getData("Selena Gomez")
+        // Select a random genre or search term
+        val randomGenres = listOf("Pop","Rock","Top","Hits","Hip Hop","K-POP","Blues")
+        val randomSearch = randomGenres.random()
+
+        // Fetch data using the random genre
+        val retrofitData = retrofitBuilder.getData(randomSearch)
         retrofitData.enqueue(object : Callback<MyData?> {
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
                 val dataList = response.body()?.data ?: return
@@ -71,7 +75,9 @@ class FragmentHome : Fragment() {
                 )
             }
 
-            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {
+                // Handle error
+            }
         })
 
         // Handle play/pause button click in Now Playing section

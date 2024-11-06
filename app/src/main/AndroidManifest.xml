@@ -37,7 +37,7 @@
             android:name=".activity.Edituserprofile"
             android:exported="false" />
         <activity
-            android:name=".fragments.Fragment_home"
+            android:name=".fragments.FragmentHome"
             android:exported="false" />
         <activity
             android:name=".fragments.FragmentLibrary"
@@ -83,15 +83,27 @@
             android:name=".activity.MainActivity"
             android:exported="true" />
 
+        <!-- Facebook SDK Metadata -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="1233789641205353" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="6566b8a5e931d0bcac2e57e05ede9105" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="YOUR_ADMOB_APP_ID" />
+
         <meta-data
             android:name="com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN"
             android:value="YOUR_CLIENT_ID" />
+
     </application>
 
 </manifest>

@@ -62,6 +62,11 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.dynamic.links)
 
+    //facebook auth
+    implementation(libs.facebook)
+    implementation(libs.google.firebase.auth)
+
+
     //retrofit
     implementation(libs.retrofit)
 
