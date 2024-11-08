@@ -27,7 +27,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class FragmentHome : Fragment() {
 
-    private lateinit var myRecyclerView: RecyclerView
+    private lateinit var mostPlayedSongs: RecyclerView
+    private lateinit var trendingSongsPlaylist: RecyclerView
+    private lateinit var popularAlbumsSong: RecyclerView
     private lateinit var myAdapter: RecyclerViewAdapter
     private lateinit var albumArt: ImageView
     private lateinit var songTitle: TextView
@@ -35,7 +37,6 @@ class FragmentHome : Fragment() {
     private lateinit var playPauseButton: ImageButton
     private lateinit var songSeekBar: SeekBar
     private val combinedDataList = mutableListOf<Data>()
-    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +48,9 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        myRecyclerView = view.findViewById(R.id.mostPlayedSongs)
+        mostPlayedSongs = view.findViewById(R.id.mostPlayedSongs)
+        trendingSongsPlaylist = view.findViewById(R.id.trendingSongsPlaylist)
+        popularAlbumsSong =view.findViewById(R.id.popularAlbumsSong)
         albumArt = view.findViewById(R.id.songImg)
         songTitle = view.findViewById(R.id.currentSongTitle)
         artistName = view.findViewById(R.id.currentArtistName)
@@ -60,7 +63,18 @@ class FragmentHome : Fragment() {
             .build()
             .create(ApiInterface::class.java)
 
-        val genres = listOf("Rock", "Top", "Hits", "Hip Hop", "K-Pop", "Blues", "Romantic")
+        val genres = listOf("Rock", "Hits", "Hip Hop", "K-Pop", "Blues", "Romantic")
+        val trending = listOf("trending","new")
+        val Popular = listOf("Populer","new")
+
+        for (j in Popular){
+            fetchPopularData(retrofitBuilder, j)
+        }
+
+        for (i in trending) {
+            fetchTrendingData(retrofitBuilder, i)
+        }
+
         for (genre in genres) {
             fetchGenreData(retrofitBuilder, genre)
         }
@@ -81,6 +95,7 @@ class FragmentHome : Fragment() {
         })
     }
 
+//recent
     private fun fetchGenreData(apiInterface: ApiInterface, genre: String) {
         val call = apiInterface.getData(genre)
         call.enqueue(object : Callback<MyData?> {
@@ -94,8 +109,8 @@ class FragmentHome : Fragment() {
                             onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
                             onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
                         )
-                        myRecyclerView.adapter = myAdapter
-                        myRecyclerView.layoutManager = LinearLayoutManager(
+                        mostPlayedSongs.adapter = myAdapter
+                        mostPlayedSongs.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
                         )
                     } else {
@@ -107,6 +122,63 @@ class FragmentHome : Fragment() {
             override fun onFailure(call: Call<MyData?>, t: Throwable) {}
         })
     }
+
+    //trending
+    private fun fetchTrendingData(apiInterface: ApiInterface, i: String) {
+        val call = apiInterface.getData(i)
+        call.enqueue(object : Callback<MyData?> {
+            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
+                response.body()?.data?.let { dataList ->
+                    combinedDataList.addAll(dataList)
+                    if (!::myAdapter.isInitialized) {
+                        myAdapter = RecyclerViewAdapter(
+                            requireContext(), combinedDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
+                        )
+                        trendingSongsPlaylist.adapter = myAdapter
+                        trendingSongsPlaylist.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        myAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+        })
+    }
+
+    //popular
+    private fun fetchPopularData(apiInterface: ApiInterface, j: String) {
+        val call = apiInterface.getData(j)
+        call.enqueue(object : Callback<MyData?> {
+            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
+                response.body()?.data?.let { dataList ->
+                    combinedDataList.addAll(dataList)
+                    if (!::myAdapter.isInitialized) {
+                        myAdapter = RecyclerViewAdapter(
+                            requireContext(), combinedDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
+                        )
+                        popularAlbumsSong.adapter = myAdapter
+                        popularAlbumsSong.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        myAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+        })
+    }
+
 
     private fun updateNowPlayingUI(song: Data) {
         Picasso.get().load(song.album.cover).into(albumArt)
