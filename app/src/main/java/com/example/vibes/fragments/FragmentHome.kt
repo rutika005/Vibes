@@ -1,11 +1,14 @@
 package com.example.vibes.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +33,9 @@ class FragmentHome : Fragment() {
     private lateinit var songTitle: TextView
     private lateinit var artistName: TextView
     private lateinit var playPauseButton: ImageButton
-    private val combinedDataList = mutableListOf<Data>() // Combined list for all genres
+    private lateinit var songSeekBar: SeekBar
+    private val combinedDataList = mutableListOf<Data>()
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,26 +52,33 @@ class FragmentHome : Fragment() {
         songTitle = view.findViewById(R.id.currentSongTitle)
         artistName = view.findViewById(R.id.currentArtistName)
         playPauseButton = view.findViewById(R.id.btnPlayPause)
+        songSeekBar = view.findViewById(R.id.songSeekBar)
 
-        // Retrofit setup
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://deezerdevs-deezer.p.rapidapi.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiInterface::class.java)
 
-        // List of genres to fetch
-        val genres = listOf("Rock", "Top", "Hits", "Hip Hop", "K-Pop", "Blues","Romantic")
-
-        // Fetch data for each genre
+        val genres = listOf("Rock", "Top", "Hits", "Hip Hop", "K-Pop", "Blues", "Romantic")
         for (genre in genres) {
             fetchGenreData(retrofitBuilder, genre)
         }
 
-        // Handle play/pause button click in Now Playing section
         playPauseButton.setOnClickListener {
             myAdapter.playPauseSong()
         }
+
+        songSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    myAdapter.mediaPlayer?.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
     }
 
     private fun fetchGenreData(apiInterface: ApiInterface, genre: String) {
@@ -74,27 +86,25 @@ class FragmentHome : Fragment() {
         call.enqueue(object : Callback<MyData?> {
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
                 response.body()?.data?.let { dataList ->
-                    combinedDataList.addAll(dataList) // Add fetched data to combined list
-
-                    // Initialize or update adapter with combined data
+                    combinedDataList.addAll(dataList)
                     if (!::myAdapter.isInitialized) {
-                        myAdapter = RecyclerViewAdapter(requireContext(), combinedDataList,
+                        myAdapter = RecyclerViewAdapter(
+                            requireContext(), combinedDataList,
                             onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
-                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) }
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
                         )
                         myRecyclerView.adapter = myAdapter
                         myRecyclerView.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
                         )
                     } else {
-                        myAdapter.notifyDataSetChanged() // Refresh adapter with new data
+                        myAdapter.notifyDataSetChanged()
                     }
                 }
             }
 
-            override fun onFailure(call: Call<MyData?>, t: Throwable) {
-                // Handle error
-            }
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
         })
     }
 
@@ -102,6 +112,7 @@ class FragmentHome : Fragment() {
         Picasso.get().load(song.album.cover).into(albumArt)
         songTitle.text = song.title
         artistName.text = song.artist.name
+        songSeekBar.max = song.duration * 1000 // Set SeekBar max to song duration
     }
 
     private fun updatePlayPauseButton(isPlaying: Boolean) {
