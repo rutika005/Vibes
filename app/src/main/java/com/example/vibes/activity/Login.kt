@@ -23,6 +23,7 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
+@Suppress("DEPRECATION")
 class Login : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
@@ -46,7 +47,8 @@ class Login : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         firestore = FirebaseFirestore.getInstance()
-
+        mBinding.buttonLogin.setOnClickListener { loginUserWithEmail() }
+        mBinding.textViewSignup.setOnClickListener{ signupPage() }
 
         // Initialize Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -68,6 +70,11 @@ class Login : AppCompatActivity() {
         mBinding.igfacebook.setOnClickListener {
             signInWithFacebook()
         }
+    }
+
+    private fun signupPage(){
+        val i=Intent(this,Signup::class.java)
+        startActivity(i)
     }
 
     private fun loginUserWithEmail() {

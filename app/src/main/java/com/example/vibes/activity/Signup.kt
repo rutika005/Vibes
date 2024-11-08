@@ -82,6 +82,7 @@ class Signup : AppCompatActivity() {
                                 "userName" to userName,
                                 "email" to email,
                                 "fullName" to fullName,
+                                "Passwoed" to password,
                                 "uid" to uid
                             )
                             firestore.collection("Users").document(uid)
