@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_player"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_gravity="bottom"
     android:background="#00E5FF">
 
@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/currentArtistName"
         android:layout_width="128dp"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_below="@+id/currentSongTitle"
         android:layout_marginStart="90dp"
         android:text="Akshath"
@@ -68,5 +68,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="-10dp"
-        android:layout_marginTop="-4dp" />
+        android:layout_marginTop="-2dp" />
 </RelativeLayout>

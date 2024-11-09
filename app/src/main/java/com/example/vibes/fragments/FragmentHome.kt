@@ -1,8 +1,8 @@
 package com.example.vibes.fragments
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +17,7 @@ import com.example.vibes.ApiInterface
 import com.example.vibes.Data.Data
 import com.example.vibes.Data.MyData
 import com.example.vibes.R
+import com.example.vibes.activity.Edituserprofile
 import com.example.vibes.adapter.RecyclerViewAdapter
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -30,13 +31,21 @@ class FragmentHome : Fragment() {
     private lateinit var mostPlayedSongs: RecyclerView
     private lateinit var trendingSongsPlaylist: RecyclerView
     private lateinit var popularAlbumsSong: RecyclerView
-    private lateinit var myAdapter: RecyclerViewAdapter
+    private lateinit var mostPlayedAdapter: RecyclerViewAdapter
+    private lateinit var trendingAdapter: RecyclerViewAdapter
+    private lateinit var popularAdapter: RecyclerViewAdapter
     private lateinit var albumArt: ImageView
     private lateinit var songTitle: TextView
     private lateinit var artistName: TextView
     private lateinit var playPauseButton: ImageButton
     private lateinit var songSeekBar: SeekBar
+    private lateinit var profileImage:ImageView
+
+    private var currentPlayingAdapter: RecyclerViewAdapter? = null
+
     private val combinedDataList = mutableListOf<Data>()
+    private val TrendingDataList = mutableListOf<Data>()
+    private val PopularDataList = mutableListOf<Data>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,14 +57,17 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mostPlayedSongs = view.findViewById(R.id.mostPlayedSongs)
-        trendingSongsPlaylist = view.findViewById(R.id.trendingSongsPlaylist)
-        popularAlbumsSong =view.findViewById(R.id.popularAlbumsSong)
+        playPauseButton = view.findViewById(R.id.btnPlayPause)
         albumArt = view.findViewById(R.id.songImg)
         songTitle = view.findViewById(R.id.currentSongTitle)
         artistName = view.findViewById(R.id.currentArtistName)
-        playPauseButton = view.findViewById(R.id.btnPlayPause)
+        profileImage = view.findViewById(R.id.profileImage)
         songSeekBar = view.findViewById(R.id.songSeekBar)
+
+        profileImage.setOnClickListener{
+            val i=Intent(activity,Edituserprofile::class.java)
+            startActivity(i)
+        }
 
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://deezerdevs-deezer.p.rapidapi.com")
@@ -63,30 +75,23 @@ class FragmentHome : Fragment() {
             .build()
             .create(ApiInterface::class.java)
 
-        val genres = listOf("Rock", "Hits", "Hip Hop", "K-Pop", "Blues", "Romantic")
-        val trending = listOf("trending","new")
-        val Popular = listOf("Populer","new")
+        mostPlayedSongs = view.findViewById(R.id.mostPlayedSongs)
+        trendingSongsPlaylist = view.findViewById(R.id.trendingSongsPlaylist)
+        popularAlbumsSong = view.findViewById(R.id.popularAlbumsSong)
 
-        for (j in Popular){
-            fetchPopularData(retrofitBuilder, j)
-        }
-
-        for (i in trending) {
-            fetchTrendingData(retrofitBuilder, i)
-        }
-
-        for (genre in genres) {
-            fetchGenreData(retrofitBuilder, genre)
-        }
+        // Fetch data for different genres
+        fetchPopularData(retrofitBuilder, "Popular")
+        fetchTrendingData(retrofitBuilder, "trending")
+        fetchGenreData(retrofitBuilder, "Rock") // Example genre, you can loop through other genres
 
         playPauseButton.setOnClickListener {
-            myAdapter.playPauseSong()
+            currentPlayingAdapter?.playPauseSong() // Play/Pause the current playing song
         }
 
         songSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    myAdapter.mediaPlayer?.seekTo(progress)
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser ) {
+                    currentPlayingAdapter?.mediaPlayer?.seekTo(progress)
                 }
             }
 
@@ -95,96 +100,104 @@ class FragmentHome : Fragment() {
         })
     }
 
-//recent
-    private fun fetchGenreData(apiInterface: ApiInterface, genre: String) {
-        val call = apiInterface.getData(genre)
-        call.enqueue(object : Callback<MyData?> {
-            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
-                response.body()?.data?.let { dataList ->
-                    combinedDataList.addAll(dataList)
-                    if (!::myAdapter.isInitialized) {
-                        myAdapter = RecyclerViewAdapter(
-                            requireContext(), combinedDataList,
-                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
-                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
-                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
-                        )
-                        mostPlayedSongs.adapter = myAdapter
-                        mostPlayedSongs.layoutManager = LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false
-                        )
-                    } else {
-                        myAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
+    private fun updateNowPlayingUI(song: Data, adapter: RecyclerViewAdapter) {
+        // Stop the currently playing song if it's from a different adapter
+        if (currentPlayingAdapter != null && currentPlayingAdapter != adapter) {
+            currentPlayingAdapter?.stopSong() // Stop the song from the previous adapter
+        }
 
-            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
-        })
-    }
+        // Update the current playing adapter
+        currentPlayingAdapter = adapter
 
-    //trending
-    private fun fetchTrendingData(apiInterface: ApiInterface, i: String) {
-        val call = apiInterface.getData(i)
-        call.enqueue(object : Callback<MyData?> {
-            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
-                response.body()?.data?.let { dataList ->
-                    combinedDataList.addAll(dataList)
-                    if (!::myAdapter.isInitialized) {
-                        myAdapter = RecyclerViewAdapter(
-                            requireContext(), combinedDataList,
-                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
-                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
-                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
-                        )
-                        trendingSongsPlaylist.adapter = myAdapter
-                        trendingSongsPlaylist.layoutManager = LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false
-                        )
-                    } else {
-                        myAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
-        })
-    }
-
-    //popular
-    private fun fetchPopularData(apiInterface: ApiInterface, j: String) {
-        val call = apiInterface.getData(j)
-        call.enqueue(object : Callback<MyData?> {
-            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
-                response.body()?.data?.let { dataList ->
-                    combinedDataList.addAll(dataList)
-                    if (!::myAdapter.isInitialized) {
-                        myAdapter = RecyclerViewAdapter(
-                            requireContext(), combinedDataList,
-                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong) },
-                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
-                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
-                        )
-                        popularAlbumsSong.adapter = myAdapter
-                        popularAlbumsSong.layoutManager = LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false
-                        )
-                    } else {
-                        myAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
-        })
-    }
-
-
-    private fun updateNowPlayingUI(song: Data) {
+        // // Update UI
         Picasso.get().load(song.album.cover).into(albumArt)
         songTitle.text = song.title
         artistName.text = song.artist.name
         songSeekBar.max = song.duration * 1000 // Set SeekBar max to song duration
+    }
+
+    private fun fetchGenreData(apiInterface: ApiInterface, genre: String) {
+        val call = apiInterface.getData(genre)
+        call.enqueue(object : Callback<MyData?> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
+                response.body()?.data?.let { dataList ->
+                    combinedDataList.addAll(dataList)
+                    if (!::mostPlayedAdapter.isInitialized) {
+                        mostPlayedAdapter = RecyclerViewAdapter(
+                            requireContext(), combinedDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong, mostPlayedAdapter) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
+                        )
+                        mostPlayedSongs.adapter = mostPlayedAdapter
+                        mostPlayedSongs.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        mostPlayedAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+        })
+    }
+
+    private fun fetchTrendingData(apiInterface: ApiInterface, i: String) {
+        val call = apiInterface.getData(i)
+        call.enqueue(object : Callback<MyData?> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
+                response.body()?.data?.let { dataList ->
+                    TrendingDataList.addAll(dataList)
+                    if (!::trendingAdapter.isInitialized) {
+                        trendingAdapter = RecyclerViewAdapter(
+                            requireContext(), TrendingDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong, trendingAdapter) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
+                        )
+                        trendingSongsPlaylist.adapter = trendingAdapter
+                        trendingSongsPlaylist.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        trendingAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+        })
+    }
+
+    private fun fetchPopularData(apiInterface: ApiInterface, j: String) {
+        val call = apiInterface.getData(j)
+        call.enqueue(object : Callback<MyData?> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
+                response.body()?.data?.let { dataList ->
+                    PopularDataList.addAll(dataList)
+                    if (!::popularAdapter.isInitialized) {
+                        popularAdapter = RecyclerViewAdapter(
+                            requireContext(), PopularDataList,
+                            onSongSelected = { selectedSong -> updateNowPlayingUI(selectedSong, popularAdapter) },
+                            onPlayPauseStateChanged = { isPlaying -> updatePlayPauseButton(isPlaying) },
+                            onSongProgressUpdate = { progress -> songSeekBar.progress = progress }
+                        )
+                        popularAlbumsSong.adapter = popularAdapter
+                        popularAlbumsSong.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+                        popularAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyData?>, t: Throwable) {}
+        })
     }
 
     private fun updatePlayPauseButton(isPlaying: Boolean) {

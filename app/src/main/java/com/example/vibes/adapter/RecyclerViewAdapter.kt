@@ -13,6 +13,7 @@ import com.example.vibes.Data.Data
 import com.example.vibes.R
 import com.squareup.picasso.Picasso
 
+@Suppress("DEPRECATION")
 class RecyclerViewAdapter(
     private val context: Context,
     private val dataList: List<Data>,
@@ -35,13 +36,21 @@ class RecyclerViewAdapter(
         }
     }
 
+    companion object {
+        var currentlyPlayingAdapter: RecyclerViewAdapter? = null
+    }
+
     private fun startSong(songData: Data) {
+        // Stop the currently playing song from another adapter
+        currentlyPlayingAdapter?.stopSong()
+
         mediaPlayer?.release()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(songData.preview)
             prepare()
             start()
             this@RecyclerViewAdapter.isPlaying = true
+            currentlyPlayingAdapter = this@RecyclerViewAdapter // Set this adapter as currently playing
             onPlayPauseStateChanged(isPlaying)
             handler.post(progressUpdater)
         }
@@ -68,6 +77,7 @@ class RecyclerViewAdapter(
         mediaPlayer?.release()
         mediaPlayer = null
         isPlaying = false
+        currentlyPlayingAdapter = null // Reset currently playing adapter
         handler.removeCallbacks(progressUpdater)
         onPlayPauseStateChanged(isPlaying)
     }
