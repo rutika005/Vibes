@@ -13,4 +13,7 @@ interface ApiInterface {
     )
     @GET("search")
     fun getData(@Query("q") query: String): Call<MyData>
+
+    @GET("chart")
+    fun getTopSearches(): Call<MyData>
 }
