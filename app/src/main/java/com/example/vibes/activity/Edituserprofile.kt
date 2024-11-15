@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
+@Suppress("DEPRECATION")
 class Edituserprofile : AppCompatActivity() {
     private lateinit var mBinding: ActivityEdituserprofileBinding
     private lateinit var googleSignInClient: GoogleSignInClient

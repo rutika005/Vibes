@@ -7,10 +7,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.vibes.R
 
-class MusicPlayingPage : AppCompatActivity() {
+class LikedList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_music_playing_page)
+        setContentView(R.layout.activity_liked_list)
+
+
     }
 }

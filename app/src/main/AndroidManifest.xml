@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="com.android.car.ui" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
 
     <application
         android:allowBackup="true"
@@ -18,10 +18,14 @@
         android:theme="@style/Theme.Vibes"
         tools:targetApi="31">
         <activity
+            android:name=".activity.LikedList"
+            android:exported="false" />
+        <activity
             android:name=".activity.UpdatePassword"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -36,6 +40,7 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback">
+
             <!-- Intent filters can be added here if needed -->
         </service>
 
@@ -93,29 +98,22 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true" />
-
-        <!-- Facebook SDK Metadata -->
+            android:exported="true" /> <!-- Facebook SDK Metadata -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="1233789641205353" />
-
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="6566b8a5e931d0bcac2e57e05ede9105" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="YOUR_ADMOB_APP_ID" />
-
         <meta-data
             android:name="com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN"
             android:value="YOUR_CLIENT_ID" />
-
     </application>
 
 </manifest>
