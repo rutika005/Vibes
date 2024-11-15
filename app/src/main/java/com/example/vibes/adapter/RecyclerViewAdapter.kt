@@ -1,6 +1,7 @@
 package com.example.vibes.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Handler
 import android.view.LayoutInflater
@@ -11,9 +12,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vibes.Data.Data
 import com.example.vibes.R
+import com.example.vibes.service.MusicService
 import com.squareup.picasso.Picasso
 
-@Suppress("DEPRECATION")
 class RecyclerViewAdapter(
     private val context: Context,
     private val dataList: List<Data>,
@@ -24,6 +25,7 @@ class RecyclerViewAdapter(
 
     var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
+    private var currentPosition: Int = -1 // Use var for reassignable variables
     private val handler = Handler()
     private val progressUpdater = object : Runnable {
         override fun run() {
@@ -40,7 +42,7 @@ class RecyclerViewAdapter(
         var currentlyPlayingAdapter: RecyclerViewAdapter? = null
     }
 
-    private fun startSong(songData: Data) {
+    private fun startSong(songData: Data, position: Int) {
         // Stop the currently playing song from another adapter
         currentlyPlayingAdapter?.stopSong()
 
@@ -51,24 +53,14 @@ class RecyclerViewAdapter(
             start()
             this@RecyclerViewAdapter.isPlaying = true
             currentlyPlayingAdapter = this@RecyclerViewAdapter // Set this adapter as currently playing
+            this@RecyclerViewAdapter.currentPosition = position // Update the current position
             onPlayPauseStateChanged(isPlaying)
             handler.post(progressUpdater)
-        }
-    }
 
-    fun playPauseSong() {
-        mediaPlayer?.let {
-            if (it.isPlaying) {
-                it.pause()
-                isPlaying = false
-                onPlayPauseStateChanged(isPlaying)
-                handler.removeCallbacks(progressUpdater)
-            } else {
-                it.start()
-                isPlaying = true
-                onPlayPauseStateChanged(isPlaying)
-                handler.post(progressUpdater)
-            }
+            // Create an explicit intent to start the MusicService
+            val intent = Intent(context, MusicService::class.java)
+            intent.putExtra("song_title", songData.title) // Add the song title to the Intent
+            context.startService(intent)
         }
     }
 
@@ -77,9 +69,43 @@ class RecyclerViewAdapter(
         mediaPlayer?.release()
         mediaPlayer = null
         isPlaying = false
+        currentPosition = -1 // Reset the current position
         currentlyPlayingAdapter = null // Reset currently playing adapter
         handler.removeCallbacks(progressUpdater)
         onPlayPauseStateChanged(isPlaying)
+
+        // Create an explicit intent to stop the MusicService
+        val intent = Intent(context, MusicService::class.java)
+        context.stopService(intent) // Stop the service correctly
+    }
+
+    fun playPauseSong() {
+        mediaPlayer?.let {
+            if (currentPosition != -1) { // Check if a valid position exists
+                val songData = dataList[currentPosition] // Get current song data
+                if (it.isPlaying) {
+                    it.pause()
+                    isPlaying = false
+                    onPlayPauseStateChanged(isPlaying)
+                    // Send "pause" action to update the notification
+                    val intent = Intent(context, MusicService::class.java).apply {
+                        putExtra("song_title", songData.title)
+                        putExtra("action", "pause")
+                    }
+                    context.startService(intent)
+                } else {
+                    it.start()
+                    isPlaying = true
+                    onPlayPauseStateChanged(isPlaying)
+                    // Send "play" action to update the notification
+                    val intent = Intent(context, MusicService::class.java).apply {
+                        putExtra("song_title", songData.title)
+                        putExtra("action", "play")
+                    }
+                    context.startService(intent)
+                }
+            }
+        }
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -100,7 +126,7 @@ class RecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             onSongSelected(songData)
-            startSong(songData)
+            startSong(songData, position) // Pass the position to startSong
         }
     }
 

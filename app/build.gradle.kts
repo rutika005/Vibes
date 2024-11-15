@@ -85,4 +85,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     //convert images url to images
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("com.google.android.material:material:1.9.0") // or the latest stable version
+
 }

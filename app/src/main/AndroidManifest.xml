@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="com.android.car.ui" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <application
         android:allowBackup="true"
@@ -26,6 +30,14 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback">
+            <!-- Intent filters can be added here if needed -->
+        </service>
 
         <activity
             android:name=".activity.MusicPlayingPage"

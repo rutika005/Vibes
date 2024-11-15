@@ -13,10 +13,9 @@ class Musictype : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_musictype)
 
-        val nextbutton = findViewById<Button>(R.id.nextbutton)
+        val nextButton = findViewById<Button>(R.id.nextbutton)
 
-
-        nextbutton.setOnClickListener{
+        nextButton.setOnClickListener{
             val i = Intent(this, Languagechoose::class.java)
             startActivity(i)
         }

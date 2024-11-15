@@ -1,5 +1,9 @@
 package com.example.vibes.Data
 
+import java.io.Serializable
+import kotlin.Long
+
+
 data class Data(
     val album: Album,
     val artist: Artist,
@@ -17,4 +21,4 @@ data class Data(
     val title_short: String,
     val title_version: String,
     val type: String
-)
+) : Serializable
