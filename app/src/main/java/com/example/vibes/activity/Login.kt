@@ -1,7 +1,9 @@
 package com.example.vibes.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vibes.R
@@ -85,6 +87,12 @@ class Login : AppCompatActivity() {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putBoolean("isLoggedIn", true) // Save login state
+                        editor.apply()
+
                         val uid = firebaseAuth.currentUser?.uid
                         uid?.let {
                             // Fetch user data from Firestore
@@ -174,12 +182,21 @@ class Login : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Google sign-in successful", Toast.LENGTH_SHORT).show()
+
+                // Save login state in SharedPreferences
+                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("isLoggedIn", true) // Save login state
+                editor.apply()
+
                 val intent = Intent(this, Chooseartist::class.java)
                 startActivity(intent)
-                // Proceed to the next activity or handle the signed-in user
+                finish() // Optional: Close the current activity to prevent back navigation to login
             } else {
+                Log.d("firebaseAuthWithGoogle", "firebaseAuthWithGoogle: ${task.exception?.message}")
                 Toast.makeText(this, "Google sign-in failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 }

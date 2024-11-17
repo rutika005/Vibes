@@ -25,12 +25,7 @@ class UpdateProfile : AppCompatActivity() {
     }
     private val btnImgEvents = View.OnClickListener { view ->
         when (view.id) {
-            R.id.backbutton -> goToEdituser()
+            R.id.backbutton -> finish()
         }
-    }
-
-    private fun goToEdituser() {
-        val i = Intent(this,Edituserprofile::class.java)
-        startActivity(i)
     }
 }

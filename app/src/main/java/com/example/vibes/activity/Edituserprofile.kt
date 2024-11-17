@@ -1,5 +1,6 @@
 package com.example.vibes.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -31,12 +32,28 @@ class Edituserprofile : AppCompatActivity() {
         // Set up click listeners
         mBinding.backarr.setOnClickListener(btnImgEvents)
         mBinding.editprofilebutton.setOnClickListener(btnbuttonEvent)
+        mBinding.artistsbutton.setOnClickListener{
+            goToSelectArtist()
+        }
         mBinding.btnLogout.setOnClickListener { showLogoutDialog() }
+
+        val sharedPreferences = getSharedPreferences("SelectedItems", Context.MODE_PRIVATE)
+        val artistName = sharedPreferences.getString("artistName", null)
+
+        mBinding.artistsbutton.text = artistName
+    }
+
+    private fun goToSelectArtist() {
+        val intent=Intent(this,Chooseartist::class.java)
+        intent.putExtra("isFromEditUser",true)
+        startActivity(intent)
     }
 
     private val btnImgEvents = View.OnClickListener { view ->
         when (view.id) {
-            R.id.backarr -> goToHometype()
+            R.id.backarr -> finish()
+
+
         }
     }
 
@@ -47,7 +64,6 @@ class Edituserprofile : AppCompatActivity() {
     }
 
     private fun goToHometype() {
-        val i=Intent()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, FragmentHome())

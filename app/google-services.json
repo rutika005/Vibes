@@ -3,7 +3,7 @@
     "project_number": "262045440934",
     "firebase_url": "https://vibes-88ada-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "vibes-88ada",
-    "storage_bucket": "vibes-88ada.appspot.com"
+    "storage_bucket": "vibes-88ada.firebasestorage.app"
   },
   "client": [
     {
@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "262045440934-nd72g83our7n1u3p1jnud6fhagbpu0h8.apps.googleusercontent.com",
+          "client_id": "262045440934-tkgul4lf702fn9skohm8vv18ov82p7pd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.vibes",
-            "certificate_hash": "66dd57300b20eff3ccadce18d593d73c9b34ef01"
+            "certificate_hash": "ce85311530f799a5f7184b921d8872c59cd2df38"
           }
         },
         {

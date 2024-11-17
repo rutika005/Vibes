@@ -1,5 +1,6 @@
 package com.example.vibes.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,9 +12,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val getstarted = findViewById<Button>(R.id.btngetstarted)
-        getstarted.setOnClickListener{
-            val i = Intent(this, Signuplogin::class.java)
-            startActivity(i)
+
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+        getstarted.setOnClickListener {
+
+            if (isLoggedIn) {
+                val intent = Intent(this, Fragment_Home_Page::class.java)
+                startActivity(intent)
+                finish() // Prevent going back to the login screen
+            } else {
+                val i = Intent(this, Signuplogin::class.java)
+                startActivity(i)
+            }
+
         }
     }
 }

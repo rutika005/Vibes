@@ -1,7 +1,9 @@
+
 package com.example.vibes.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.os.Handler
 import android.view.LayoutInflater
@@ -27,6 +29,7 @@ class RecyclerViewAdapter(
     private var isPlaying = false
     private var currentPosition: Int = -1 // Use var for reassignable variables
     private val handler = Handler()
+    private lateinit var musicService: MusicService
     private val progressUpdater = object : Runnable {
         override fun run() {
             mediaPlayer?.let {
@@ -37,7 +40,6 @@ class RecyclerViewAdapter(
             }
         }
     }
-
     companion object {
         var currentlyPlayingAdapter: RecyclerViewAdapter? = null
     }
@@ -57,12 +59,20 @@ class RecyclerViewAdapter(
             onPlayPauseStateChanged(isPlaying)
             handler.post(progressUpdater)
 
-            // Create an explicit intent to start the MusicService
-            val intent = Intent(context, MusicService::class.java)
-            intent.putExtra("song_title", songData.title) // Add the song title to the Intent
-            context.startService(intent)
+            val musicServiceIntent = Intent(context, MusicService::class.java).apply {
+                putExtra("song_title", songData.title)
+                putExtra("song_uri", songData.preview)
+                putExtra("action", "play")
+            }
+            context.startService(musicServiceIntent)
+
+// Pass MediaPlayer instance to the service
+            mediaPlayer?.let { MusicService().setMediaPlayer(it) }
+
+
         }
     }
+
 
     fun stopSong() {
         mediaPlayer?.stop()
@@ -81,32 +91,34 @@ class RecyclerViewAdapter(
 
     fun playPauseSong() {
         mediaPlayer?.let {
-            if (currentPosition != -1) { // Check if a valid position exists
-                val songData = dataList[currentPosition] // Get current song data
+            if (currentPosition != -1) {
+                val songData = dataList[currentPosition]
                 if (it.isPlaying) {
                     it.pause()
                     isPlaying = false
                     onPlayPauseStateChanged(isPlaying)
-                    // Send "pause" action to update the notification
+
                     val intent = Intent(context, MusicService::class.java).apply {
                         putExtra("song_title", songData.title)
-                        putExtra("action", "pause")
+                        putExtra("action", "pause") // Send pause action
                     }
                     context.startService(intent)
                 } else {
                     it.start()
                     isPlaying = true
                     onPlayPauseStateChanged(isPlaying)
-                    // Send "play" action to update the notification
+
                     val intent = Intent(context, MusicService::class.java).apply {
                         putExtra("song_title", songData.title)
-                        putExtra("action", "play")
+                        putExtra("action", "play") // Send play action
                     }
                     context.startService(intent)
                 }
             }
         }
     }
+
+
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         handler.removeCallbacks(progressUpdater)

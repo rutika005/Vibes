@@ -2,6 +2,7 @@ package com.example.vibes.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,6 @@ import com.google.android.material.chip.ChipGroup
 class Languagechoose : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLanguagechooseBinding
-    private lateinit var selectedLanguagesTextView: TextView // TextView to show selected languages
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,6 @@ class Languagechoose : AppCompatActivity() {
         setContentView(mBinding.root)
 
         // Initialize the TextView that displays selected languages
-        selectedLanguagesTextView = findViewById(R.id.selected_languages_text)
 
         // Handle selection changes in ChipGroup
         mBinding.ChipGroup.setOnCheckedChangeListener { group, _ ->
@@ -33,7 +32,37 @@ class Languagechoose : AppCompatActivity() {
         mBinding.buttonnext.setOnClickListener {
             goToFragmentHomePage()
         }
+        addClickListener()
     }
+
+    private fun addClickListener() {
+        val defaultColor = ColorStateList.valueOf(getColor(R.color.gradientstart))
+        val selectedColor = ColorStateList.valueOf(getColor(R.color.black))
+
+        val chips = listOf(
+            mBinding.hindiButton,
+            mBinding.englishButton,
+            mBinding.punjabiButton,
+            mBinding.tamilButton,
+            mBinding.teluguButton,
+            mBinding.malayalamButton,
+            mBinding.marathiButton,
+            mBinding.gujratiButton,
+            mBinding.bengaliButton,
+            mBinding.kannadaButton
+        )
+
+        chips.forEach { chip ->
+            chip.setOnClickListener {
+                // Reset all chip colors to default
+                chips.forEach { resetChip -> resetChip.chipBackgroundColor = defaultColor }
+                // Set the selected chip color to black
+                chip.chipBackgroundColor = selectedColor
+            }
+        }
+    }
+
+
 
     // Display selected languages in TextView
     @SuppressLint("SetTextI18n")
@@ -47,18 +76,11 @@ class Languagechoose : AppCompatActivity() {
                 selectedLanguages.add(chip.text.toString())
             }
         }
-
-        // Update the TextView with selected languages
-        if (selectedLanguages.isEmpty()) {
-            selectedLanguagesTextView.text = "No language selected"
-        } else {
-            selectedLanguagesTextView.text = "Selected: ${selectedLanguages.joinToString(", ")}"
-        }
     }
 
     // Method to navigate to the next screen
     private fun goToFragmentHomePage() {
-        val i= Intent(this,Fragment_Home_Page::class.java)
+        val i = Intent(this, Fragment_Home_Page::class.java)
         startActivity(i)
     }
 }

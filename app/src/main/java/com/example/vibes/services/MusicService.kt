@@ -1,3 +1,4 @@
+
 package com.example.vibes.service
 
 import android.app.Notification
@@ -6,6 +7,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -13,6 +15,8 @@ import androidx.core.app.NotificationCompat
 import com.example.vibes.R
 
 class MusicService : Service() {
+
+    private lateinit var mediaPlayer : MediaPlayer
 
     companion object {
         const val CHANNEL_ID = "Vibes_Channel"
@@ -25,28 +29,40 @@ class MusicService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        val songUri = intent.getStringExtra("song_uri")
         val songTitle = intent.getStringExtra("song_title") ?: "Unknown Song"
         val action = intent.getStringExtra("action") ?: "play"
 
-        // Log for debugging
-        Log.d("MusicService", "Action: $action, Song: $songTitle")
-
-        when (action) {
-            "play" -> {
-                updateNotification(songTitle, isPlaying = true)
-                Log.d("MusicService", "Playing: $songTitle")
-            }
-            "pause" -> {
-                updateNotification(songTitle, isPlaying = false)
-                Log.d("MusicService", "Paused: $songTitle")
+        if (!this::mediaPlayer.isInitialized && songUri != null) {
+            mediaPlayer = MediaPlayer().apply {
+                setDataSource(songUri)
+                prepare() // Prepare synchronously
             }
         }
 
-        // Start the service in the foreground
-        startForeground(NOTIFICATION_ID, createNotification(songTitle, action == "play"))
+        when (action) {
+            "play" -> {
+                mediaPlayer.start()
+                updateNotification(songTitle, isPlaying = true)
+            }
+            "pause" -> {
+                mediaPlayer.pause()
+                updateNotification(songTitle, isPlaying = false)
+            }
+        }
 
+        startForeground(NOTIFICATION_ID, createNotification(songTitle, action == "play"))
         return START_STICKY
     }
+
+
+
+
+    fun setMediaPlayer(mediaPlayer: MediaPlayer) {
+        this.mediaPlayer = mediaPlayer
+    }
+
+
 
     private fun updateNotification(songTitle: String, isPlaying: Boolean) {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -57,7 +73,6 @@ class MusicService : Service() {
     }
 
     private fun createNotification(songTitle: String, isPlaying: Boolean): Notification {
-        // Create the play/pause intent
         val playPauseIntent = Intent(this, MusicService::class.java).apply {
             putExtra("song_title", songTitle)
             putExtra("action", if (isPlaying) "pause" else "play")
@@ -67,20 +82,20 @@ class MusicService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
 
-        // Build the notification
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Now Playing")
             .setContentText(songTitle)
-            .setSmallIcon(R.drawable.applogo) // Replace with your app icon
-            .setOngoing(isPlaying) // Keep notification active if playing
+            .setSmallIcon(R.drawable.applogo)
+            .setOngoing(isPlaying)
             .addAction(
                 if (isPlaying) R.drawable.pause_music_icon else R.drawable.start_music_icon,
                 if (isPlaying) "Pause" else "Play",
                 playPausePendingIntent
             )
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) // Ensure visibility on the lock screen
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .build()
     }
+
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -102,8 +117,12 @@ class MusicService : Service() {
         return null
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
+        if (this::mediaPlayer.isInitialized) {
+            mediaPlayer.release()
+        }
         Log.d("MusicService", "Service destroyed")
     }
 }
