@@ -51,6 +51,10 @@ class Login : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         mBinding.buttonLogin.setOnClickListener { loginUserWithEmail() }
         mBinding.textViewSignup.setOnClickListener{ signupPage() }
+        mBinding.tvforgotpass.setOnClickListener{
+            val i = Intent(this,Forgotpassword::class.java)
+            startActivity(i)
+        }
 
         // Initialize Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

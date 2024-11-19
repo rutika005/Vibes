@@ -15,31 +15,31 @@ class Chooseartist : AppCompatActivity() {
     private lateinit var gridView: GridView
     private var numberNames = arrayOf(
         "Atif Aslam",
+        "Talha Anjum",
+        "Charlie Puth",
+        "Darshan Raval",
+        "Nova",
         "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK",
-        "Atif Aslam",
-        "KK"
+        "Mohit Chauhan",
+        "Sonu Nigam",
+        "Anuv Jain",
+        "Shreya Ghoshal",
+        "Aditya Rikhari",
+        "Aditya Gadhvi",
+        "Armaan Malik",
+        "Jigardan Gadhvi",
+        "Young Stunners",
+        "Arijit Singh",
+        "Selena Gomez",
+        "Taylor Swift"
     )
 
     private var numberImages = intArrayOf(
-        R.drawable.atif_aslam, R.drawable.kk, R.drawable.atif_aslam, R.drawable.kk,
-        R.drawable.atif_aslam, R.drawable.kk, R.drawable.atif_aslam, R.drawable.kk,
-        R.drawable.atif_aslam, R.drawable.kk, R.drawable.atif_aslam, R.drawable.kk,
-        R.drawable.atif_aslam, R.drawable.kk, R.drawable.atif_aslam, R.drawable.kk,
-        R.drawable.atif_aslam, R.drawable.kk,
+        R.drawable.atif_aslam, R.drawable.talha_arjum, R.drawable.charli, R.drawable.darshan,
+        R.drawable.nova, R.drawable.kk, R.drawable.mohit_chauhan, R.drawable.sonu_nigam,
+        R.drawable.anuv_jain, R.drawable.shreya_ghoshal, R.drawable.aditya_rikhari, R.drawable.aditya_gadhvi,
+        R.drawable.armaan_malik, R.drawable.jigardan_gadhvi, R.drawable.young_stunners,R.drawable.arijit_singh,
+        R.drawable.selena_gomez, R.drawable.taylor_swift_1,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
