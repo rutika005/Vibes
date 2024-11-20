@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".activity.Musictype"
-    android:background="@drawable/gradient_background">
+    tools:context=".activity.Musictype">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -33,11 +33,11 @@
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnpop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background_selected"
             android:fontFamily="@font/nunito"
             android:text="POP"
             android:textColor="@color/white"
@@ -45,22 +45,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnhiphop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:text="HIP HOP"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/btnrandb"
             app:layout_constraintStart_toEndOf="@id/btnpop"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnrandb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:text="R&amp;B"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,32 +77,33 @@
         app:layout_constraintStart_toStartOf="@+id/firstRow"
         app:layout_constraintTop_toBottomOf="@+id/firstRow">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnblues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/nunito"
             android:text="BLUES"
-            android:layout_marginLeft="40dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/btnlatin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnlatin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
-            android:text="LATIN"
             android:layout_marginRight="30dp"
+            android:background="@drawable/rounded_button_background"
+            android:text="LATIN"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnblues"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/thirdRow"
         android:layout_width="match_parent"
@@ -112,11 +113,11 @@
         app:layout_constraintStart_toStartOf="@+id/firstRow"
         app:layout_constraintTop_toBottomOf="@+id/secondRow">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnrock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/nunito"
             android:text="ROCK"
             android:textColor="@color/white"
@@ -124,11 +125,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btndance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:text="DANCE MUSIC"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,6 +137,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ForthRow"
         android:layout_width="match_parent"
@@ -145,22 +147,22 @@
         app:layout_constraintStart_toStartOf="@+id/firstRow"
         app:layout_constraintTop_toBottomOf="@+id/thirdRow">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnfolk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:text="FOLK"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/btnelectro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnelectro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:fontFamily="@font/nunito"
             android:text="ELECTRO"
             android:textColor="@color/white"
@@ -168,17 +170,16 @@
             app:layout_constraintStart_toEndOf="@id/btnfolk"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnkpop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/Button"
+            android:background="@drawable/rounded_button_background"
             android:text="K-POP"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnelectro"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -193,29 +194,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/iconback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/next"
-            android:contentDescription="Back Button"
-            android:src="@drawable/ic_back_arrow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nextbutton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/nextbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/next"
             android:text="NEXT"
-            android:layout_marginLeft="150dp"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iconback"
-            app:layout_constraintTop_toTopOf="@+id/iconback" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

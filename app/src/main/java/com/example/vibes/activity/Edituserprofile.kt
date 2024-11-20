@@ -1,45 +1,102 @@
 package com.example.vibes.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.vibes.R
 import com.example.vibes.databinding.ActivityEdituserprofileBinding
-import com.example.vibes.fragments.Fragment_home
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Edituserprofile : AppCompatActivity() {
     private lateinit var mBinding: ActivityEdituserprofileBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_edituserprofile)
         mBinding = ActivityEdituserprofileBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.backarrow.setOnClickListener(btnImgEvents)
+        // Initialize Firebase instances
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        // Fetch and display username
+        fetchAndDisplayUsername()
+
+        // Set up click listeners
+        mBinding.backarr.setOnClickListener { finish() }
+        mBinding.editprofilebutton.setOnClickListener { goToUpdateProfile() }
+        mBinding.artistsbutton.setOnClickListener { goToSelectArtist() }
+        mBinding.btnLogout.setOnClickListener { showLogoutDialog() }
+
+        mBinding.artistsbutton.setOnClickListener{
+            goToSelectArtist()
+        }
+        mBinding.btnLogout.setOnClickListener { showLogoutDialog() }
+
+        val sharedPreferences = getSharedPreferences("SelectedItems", Context.MODE_PRIVATE)
+        val artistName = sharedPreferences.getString("artistName", null)
+
+        mBinding.artistsbutton.text = artistName
 
     }
-    private val btnImgEvents = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.backarrow -> goToHometype()
+
+    private fun fetchAndDisplayUsername() {
+        val userId = firebaseAuth.currentUser?.uid
+
+        if (userId != null) {
+            firestore.collection("Users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val username = document.getString("userName")
+                        mBinding.name.text = username ?: "Name not found"
+                    } else {
+                        Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("EditUserProfile", "Error fetching username", exception)
+                    Toast.makeText(this, "Failed to fetch username", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun goToHometype() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
+    private fun goToUpdateProfile() {
+        val intent = Intent(this, UpdateProfile::class.java)
+        startActivity(intent)
+    }
 
-        // Replace the current fragment with Fragment_home
-        fragmentTransaction.replace(R.id.fragment_container, Fragment_home())
+    private fun goToSelectArtist() {
+        val intent = Intent(this, Chooseartist::class.java)
+        intent.putExtra("isFromEditUser", true)
+        startActivity(intent)
+    }
 
-        // Optional: Add the transaction to the back stack
-        fragmentTransaction.addToBackStack(null)
+    private fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Log out")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                logoutUser()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+        builder.create().show()
+    }
 
-        // Commit the transaction
-        fragmentTransaction.commit()
+    private fun logoutUser() {
+        firebaseAuth.signOut()
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 }

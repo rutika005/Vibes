@@ -8,9 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.vibes.R
 import com.example.vibes.databinding.ActivityFragmentHomePageBinding
+import com.example.vibes.fragments.FragmentHome
 import com.example.vibes.fragments.FragmentLibrary
 import com.example.vibes.fragments.FragmentSearch
-import com.example.vibes.fragments.Fragment_home
 
 class Fragment_Home_Page : AppCompatActivity() {
     private lateinit var mBinding: ActivityFragmentHomePageBinding
@@ -21,10 +21,10 @@ class Fragment_Home_Page : AppCompatActivity() {
         mBinding = ActivityFragmentHomePageBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        replaceFragment(Fragment_home())
+        replaceFragment(FragmentHome())
 
         mBinding.btnHome.setOnClickListener {
-            replaceFragment(Fragment_home())
+            replaceFragment(FragmentHome())
         }
 
         mBinding.btnsearch.setOnClickListener {

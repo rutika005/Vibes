@@ -2,54 +2,85 @@ package com.example.vibes.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.chip.Chip
 import com.example.vibes.R
-import com.example.vibes.databinding.ActivityFragmentHomePageBinding
 import com.example.vibes.databinding.ActivityLanguagechooseBinding
-import com.example.vibes.fragments.Fragment_home
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
+@Suppress("DEPRECATION")
 class Languagechoose : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLanguagechooseBinding
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_languagechoose)
         mBinding = ActivityLanguagechooseBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.icBack.setOnClickListener(btnClickEvents)
-        mBinding.buttonnext.setOnClickListener(btnClickEvents)
+        // Initialize the TextView that displays selected languages
 
-        val chipGroupChoice = findViewById<ChipGroup>(R.id.ChipGroup)
-        chipGroupChoice.setOnCheckedChangeListener { group, checkedId ->
-            val chip: Chip? = group.findViewById(checkedId)
-            chip?.let { chipView ->
-                Toast.makeText(this, chipView.text, Toast.LENGTH_SHORT).show()
+        // Handle selection changes in ChipGroup
+        mBinding.ChipGroup.setOnCheckedChangeListener { group, _ ->
+            showSelectedLanguages(group)
+        }
+
+        // Button click event to move to the next screen
+        mBinding.buttonnext.setOnClickListener {
+            goToFragmentHomePage()
+        }
+        addClickListener()
+    }
+
+    private fun addClickListener() {
+        val defaultColor = ColorStateList.valueOf(getColor(R.color.gradientstart))
+        val selectedColor = ColorStateList.valueOf(getColor(R.color.black))
+
+        val chips = listOf(
+            mBinding.hindiButton,
+            mBinding.englishButton,
+            mBinding.punjabiButton,
+            mBinding.tamilButton,
+            mBinding.teluguButton,
+            mBinding.malayalamButton,
+            mBinding.marathiButton,
+            mBinding.gujratiButton,
+            mBinding.bengaliButton,
+            mBinding.kannadaButton
+        )
+
+        chips.forEach { chip ->
+            chip.setOnClickListener {
+                // Reset all chip colors to default
+                chips.forEach { resetChip -> resetChip.chipBackgroundColor = defaultColor }
+                // Set the selected chip color to black
+                chip.chipBackgroundColor = selectedColor
             }
         }
     }
 
-    private val btnClickEvents = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.ic_back -> goToMusictype()
-            R.id.buttonnext -> goToFragment_Home_Page()
+
+
+    // Display selected languages in TextView
+    @SuppressLint("SetTextI18n")
+    private fun showSelectedLanguages(group: ChipGroup) {
+        val selectedLanguages = mutableListOf<String>()
+
+        // Loop through all chips in the ChipGroup
+        for (i in 0 until group.childCount) {
+            val chip = group.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedLanguages.add(chip.text.toString())
+            }
         }
     }
 
-    private fun goToMusictype() {
-        val fIntent = Intent(this, Musictype::class.java)
-        startActivity(fIntent)
-    }
-
-    private fun goToFragment_Home_Page() {
-        val fIntent = Intent(this, Fragment_Home_Page::class.java)
-        startActivity(fIntent)
+    // Method to navigate to the next screen
+    private fun goToFragmentHomePage() {
+        val i = Intent(this, Fragment_Home_Page::class.java)
+        startActivity(i)
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,12 +9,16 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:layout_marginEnd="10dp">
 
         <LinearLayout
+            android:id="@+id/clickOnSong"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:backgroundTint="#00FFFFFF">
 
             <ImageView
                 android:id="@+id/musicImage"
@@ -25,17 +29,19 @@
 
             <TextView
                 android:id="@+id/musicTitle"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/musicartist"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/musicArtist"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
                 android:textSize="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="TextView" />
 
         </LinearLayout>
