@@ -4,11 +4,9 @@ Core Functionalities
 - Audio Playback
 - Play, pause, stop, next, and previous controls 🎶
 - Support for popular audio formats (MP3, AAC, WAV, etc.) 📀
-- Background playback support 🔁
 
 Media Library Management
-- Scan and list all audio files from device storage 📁
-- Categorize songs by artist, album, genre, and folder 🗂️
+- Categorize songs by artist, album and genre 🗂️
 - Search functionality to find songs quickly 🔍
 
 Playlists
@@ -26,7 +24,6 @@ User Interface
 Playback Enhancements
 - Equalizer for custom sound settings 🎧
 - Bass boost and virtualized effects 💥
-- Gapless playback and crossfade between tracks 🔁
 
 Notifications and Widgets
 - Media style notifications with playback controls 📣
@@ -60,3 +57,8 @@ Additional Features
 
 ![Library Page](https://github.com/user-attachments/assets/26c30159-dbb9-4393-8ff7-bb9e04eb0e21)
 ![Music Page](https://github.com/user-attachments/assets/40a7660f-ed96-43cb-bda0-8304117edca8)
+
+
+## FIGMA DESIGN
+
+-![Figma design](https://www.figma.com/design/VSRHGOSQ3GTjqsKCtunJTj/VIBES?node-id=0-1&t=UylYcc874gyD8s3p-1)
