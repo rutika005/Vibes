@@ -61,4 +61,4 @@ Additional Features
 
 ## FIGMA DESIGN
 
-![Figma design](https://www.figma.com/design/VSRHGOSQ3GTjqsKCtunJTj/VIBES?node-id=0-1&t=UylYcc874gyD8s3p-1)
+[Figma design](https://www.figma.com/design/VSRHGOSQ3GTjqsKCtunJTj/VIBES?node-id=0-1&t=UylYcc874gyD8s3p-1)
